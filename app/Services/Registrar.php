@@ -1,6 +1,6 @@
-<?php namespace App\Services;
+<?php namespace AGCommerce\Services;
 
-use App\User;
+use AGCommerce\User;
 use Validator;
 use Illuminate\Contracts\Auth\Registrar as RegistrarContract;
 
