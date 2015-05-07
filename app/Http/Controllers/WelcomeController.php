@@ -1,26 +1,21 @@
 <?php namespace AGCommerce\Http\Controllers;
 
+use AGCommerce\Category;
+
 class WelcomeController extends Controller {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Welcome Controller
-	|--------------------------------------------------------------------------
-	|
-	| This controller renders the "marketing page" for the application and
-	| is configured to only allow guests. Like most of the other sample
-	| controllers, you are free to modify or remove it as you desire.
-	|
-	*/
+    private $Categorias;
+
 
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct()
+	public function __construct(Category $categoria)
 	{
 		$this->middleware('guest');
+        $this->Categorias = $categoria;
 	}
 
 	/**
@@ -31,6 +26,18 @@ class WelcomeController extends Controller {
 	public function index()
 	{
 		return view('welcome');
+	}
+
+	/**
+	 * Lista todas as categorias do database.sqlite
+	 *
+	 * @return Response
+	 */
+	public function exemplo()
+	{
+        $Categorias = $this->Categorias->all();
+
+		return view('exemplo.exemplo', compact('Categorias'));
 	}
 
 }
