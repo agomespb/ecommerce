@@ -21,4 +21,24 @@ class AdminProductsController extends Controller {
         return view('produto.index', compact('Produtos'));
     }
 
+    /**
+     * Insere um novo produto em database.sqlite
+     *
+     * @return Response
+     */
+    public function create()
+    {
+        return view('produto.create');
+    }
+
+    /**
+     * Consulta um produto em database.sqlite
+     *
+     * @return Response
+     */
+    public function show($id)
+    {
+        $Produto = $this->Produtos->find($id);
+        return view('produto.show', compact('Produto'));
+    }
 }
