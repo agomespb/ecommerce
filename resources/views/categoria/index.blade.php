@@ -22,7 +22,9 @@
                     <td>{{ $Categoria->name }}</td>
                     <td>{{ $Categoria->description }}</td>
                     <td>
-                        <a href="{{ URL::route('show_category',['id'=>$Categoria->id] ) }}" class="btn btn-default">Consultar</a>
+                        <a href="{{ route('edit_category',['id'=>$Categoria->id] ) }}" class="btn btn-default">Editar</a>
+                        <a href="{{ route('show_category',['id'=>$Categoria->id] ) }}" class="btn btn-default">Consultar</a>
+                        <a href="{{ route('destroy_category',['id'=>$Categoria->id] ) }}" class="btn btn-default">Excluir</a>
                     </td>
                 </tr>
 

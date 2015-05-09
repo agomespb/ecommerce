@@ -14,6 +14,8 @@
                 <th>Nome</th>
                 <th>Valor R$</th>
                 <th>Descrição</th>
+                <th>Featured?</th>
+                <th>Recomendado</th>
                 <th>Ação</th>
             </tr>
 
@@ -21,11 +23,15 @@
 
                 <tr>
                     <td>{{ $Produto->id }}</td>
-                    <td>{{ $Produto->name }}</td>
+                    <td width="20%">{{ $Produto->name }}</td>
                     <td>{{ number_format($Produto->price, 2, ',', '.') }}</td>
-                    <td>{{ $Produto->description }}</td>
+                    <td width="25%">{{ $Produto->description }}</td>
+                    <td>{{ ($Produto->featured)?'Sim':'Não' }}</td>
+                    <td>{{ ($Produto->recommend)?'Sim':'Não' }}</td>
                     <td>
-                        <a href="{{ URL::route('show_product',['id'=>$Produto->id] ) }}" class="btn btn-default">Consultar</a>
+                        <a href="{{ route('edit_product',['id'=>$Produto->id] ) }}" class="btn btn-default">Editar</a>
+                        <a href="{{ route('show_product',['id'=>$Produto->id] ) }}" class="btn btn-default">Consultar</a>
+                        <a href="{{ route('destroy_product',['id'=>$Produto->id] ) }}" class="btn btn-default">Excluir</a>
                     </td>
                 </tr>
 
