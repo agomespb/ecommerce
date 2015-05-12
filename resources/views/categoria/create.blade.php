@@ -41,7 +41,7 @@
 
         <div class="form form-group">
 
-            {!! Form::submit('Inserir Categoria', ['class'=>'btn btn-primary form-control']) !!}
+            {!! Form::submit('Inserir Categoria', ['class'=>'btn btn-primary']) !!}
 
         </div>
 

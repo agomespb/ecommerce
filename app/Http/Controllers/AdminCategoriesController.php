@@ -23,7 +23,7 @@ class AdminCategoriesController extends Controller {
      */
 	public function index()
 	{
-        $Categorias = $this->Categorias->all();
+        $Categorias = $this->Categorias->paginate(5);
 		return view('categoria.index', compact('Categorias'));
 	}
 

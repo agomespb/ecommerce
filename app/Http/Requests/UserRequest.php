@@ -1,8 +1,8 @@
-<?php namespace AGCommerce\Http\Requests\produto;
+<?php namespace AGCommerce\Http\Requests;
 
 use AGCommerce\Http\Requests\Request;
 
-class ProductRequest extends Request {
+class UserRequest extends Request {
 
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -22,10 +22,9 @@ class ProductRequest extends Request {
 	public function rules()
 	{
 		return [
-            'category_id' => 'required',
-            'name' => 'required',
-            'price' => 'required|numeric',
-            'description' => 'required',
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:users',
+            'password' => 'required|confirmed|min:6',
 		];
 	}
 

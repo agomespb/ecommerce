@@ -27,6 +27,13 @@
 
         <div class="form form-group">
 
+            {!! Form::label('category_id', 'Categoria:') !!}
+            {!! Form::select('category_id', $Categorias, $Produto->Category->id,['class'=>'form-control']) !!}
+
+        </div>
+
+        <div class="form form-group">
+
             {!! Form::label('name', 'Nome:') !!}
             {!! Form::text('name',$Produto->name,['class'=>'form-control']) !!}
 
@@ -49,20 +56,30 @@
         <div class="form form-group">
 
             {!! Form::label('featured', 'Featured?:') !!}
-            {!! Form::checkbox('featured', $Produto->featured,['class'=>'form-control']) !!}
+            {!! Form::radio('featured', 1, ($Produto->featured)?true:false, ['class' => 'field']) !!} Sim
+            {!! Form::radio('featured', 0, (!$Produto->featured)?true:false, ['class' => 'field']) !!} Não
+
+            <br/>
+
+            {{--{!! Form::checkbox('featured', $Produto->featured, $Produto->featured, ['class' => 'field']) !!}--}}
 
             {!! Form::label('recommend', 'Recomendar:') !!}
-            {!! Form::checkbox('recommend', $Produto->recommend,['class'=>'form-control']) !!}
+            {!! Form::radio('recommend', 1, ($Produto->recommend)?true:false, ['class' => 'field']) !!} Sim
+            {!! Form::radio('recommend', 0, (!$Produto->recommend)?true:false, ['class' => 'field']) !!} Não
+
+            {{--{!! Form::checkbox('recommend', $Produto->recommend, $Produto->recommend,['class'=>'field']) !!}--}}
+
 
         </div>
 
         <div class="form form-group">
 
-            {!! Form::submit('Inserir Produto', ['class'=>'btn btn-primary']) !!}
+            {!! Form::submit('Salvar Produto', ['class'=>'btn btn-primary']) !!}
 
         </div>
 
         {!! Form::close() !!}
+
 
     </div>
 @endsection

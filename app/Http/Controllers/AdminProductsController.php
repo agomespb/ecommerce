@@ -1,5 +1,6 @@
 <?php namespace AGCommerce\Http\Controllers;
 
+use AGCommerce\Category;
 use AGCommerce\Product;
 use AGCommerce\Http\Requests\produto\ProductRequest;
 
@@ -18,7 +19,7 @@ class AdminProductsController extends Controller {
      */
     public function index()
     {
-        $Produtos = $this->Produtos->all();
+        $Produtos = $this->Produtos->paginate(5);
         return view('produto.index', compact('Produtos'));
     }
 
@@ -27,9 +28,10 @@ class AdminProductsController extends Controller {
      *
      * @return Response
      */
-    public function create()
+    public function create(Category $Categoria)
     {
-        return view('produto.create');
+        $Categorias = $Categoria->lists('name', 'id');
+        return view('produto.create', compact('Categorias'));
     }
 
     /**
@@ -74,10 +76,11 @@ class AdminProductsController extends Controller {
      *
      * @return Response
      */
-    public function edit($id)
+    public function edit($id, Category $Categoria)
     {
         $Produto = $this->Produtos->find($id);
-        return view('produto.edit', compact('Produto'));
+        $Categorias = $Categoria->lists('name', 'id');
+        return view('produto.edit', compact('Produto', 'Categorias'));
     }
 
     /**
@@ -87,6 +90,7 @@ class AdminProductsController extends Controller {
      */
     public function update(ProductRequest $Request, $id)
     {
+
         $this->Produtos->find($id)->update($Request->all());
         return redirect()->route('products');
     }

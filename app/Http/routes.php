@@ -26,7 +26,7 @@ Route::controllers([
  * Valida ID passado como Parâmetro
  **************************************************************************
  */
-Route::pattern('id', '[0-9]+');
+//Route::pattern('id', '[0-9]+');
 
 /*
 |--------------------------------------------------------------------------
@@ -34,61 +34,82 @@ Route::pattern('id', '[0-9]+');
 |--------------------------------------------------------------------------
 */
 
-Route::group(['prefix' => 'admin/categories'], function(){
+Route::group(['prefix' => 'admin', 'where' => ['id'=>'[0-9]+']], function(){
 
     /*
     |--------------------------------------------------------------------------
     | Categorias
     |--------------------------------------------------------------------------
     |
-    | 01 - categories: Lista todas as categorias de database.sqlite
-    | 02 - new_category: Formulário para inserir uma nova categoria em database.sqlite
-    | 03 - show_category: Realiza uma consulta por id da categoria.
-    |
     */
-    Route::get('', ['as' => 'categories', 'uses' => 'AdminCategoriesController@index']);
+    Route::group(['prefix' => 'categories'], function(){
 
-    Route::get('create', ['as' => 'new_category', 'uses' => 'AdminCategoriesController@create']);
+        Route::get('', ['as' => 'categories', 'uses' => 'AdminCategoriesController@index']);
 
-    Route::get('{id?}/show', ['as' => 'show_category', 'uses' => 'AdminCategoriesController@show']);
+        Route::post('', ['as' => 'store_category', 'uses' => 'AdminCategoriesController@store']);
 
-    Route::get('{id}/destroy', ['as' => 'destroy_category', 'uses' => 'AdminCategoriesController@destroy']);
+        Route::get('create', ['as' => 'new_category', 'uses' => 'AdminCategoriesController@create']);
 
-    Route::get('{id}/edit', ['as' => 'edit_category', 'uses' => 'AdminCategoriesController@edit']);
+        Route::get('{id?}/show', ['as' => 'show_category', 'uses' => 'AdminCategoriesController@show']);
 
-    Route::post('', ['as' => 'store_category', 'uses' => 'AdminCategoriesController@store']);
+        Route::get('{id}/destroy', ['as' => 'destroy_category', 'uses' => 'AdminCategoriesController@destroy']);
 
-    Route::put('{id}/update', ['as' => 'update_category', 'uses' => 'AdminCategoriesController@update']);
+        Route::get('{id}/edit', ['as' => 'edit_category', 'uses' => 'AdminCategoriesController@edit']);
 
-});
+        Route::put('{id}/update', ['as' => 'update_category', 'uses' => 'AdminCategoriesController@update']);
 
-Route::group(['prefix' => 'admin/products'], function(){
+    });
 
     /*
     |--------------------------------------------------------------------------
     | Produtos
     |--------------------------------------------------------------------------
     |
-    | 01 - products: Lista todos os produtos de database.sqlite
-    | 02 - new_product: Formulário para inserir um novo produto em database.sqlite
-    | 03 - show_product: Realiza uma consulta por id do produto.
+    */
+    Route::group(['prefix' => 'products'], function(){
+
+        Route::get('', ['as' => 'products', 'uses' => 'AdminProductsController@index']);
+
+        Route::post('', ['as' => 'store_product', 'uses' => 'AdminProductsController@store']);
+
+        Route::get('create', ['as' => 'new_product', 'uses' => 'AdminProductsController@create']);
+
+        Route::get('{id?}/show', ['as' => 'show_product', 'uses' => 'AdminProductsController@show']);
+
+        Route::get('{id}/destroy', ['as' => 'destroy_product', 'uses' => 'AdminProductsController@destroy']);
+
+        Route::get('{id}/edit', ['as' => 'edit_product', 'uses' => 'AdminProductsController@edit']);
+
+        Route::put('{id}/update', ['as' => 'update_product', 'uses' => 'AdminProductsController@update']);
+
+    });
+
+    /*
+    |--------------------------------------------------------------------------
+    | Usuários
+    |--------------------------------------------------------------------------
     |
     */
-    Route::get('', ['as' => 'products', 'uses' => 'AdminProductsController@index']);
+    Route::group(['prefix' => 'users'], function(){
 
-    Route::get('create', ['as' => 'new_product', 'uses' => 'AdminProductsController@create']);
+        Route::get('', ['as' => 'users', 'uses' => 'AdminUsersController@index']);
 
-    Route::get('{id?}/show', ['as' => 'show_product', 'uses' => 'AdminProductsController@show']);
+        Route::post('', ['as' => 'store_user', 'uses' => 'AdminUsersController@store']);
 
-    Route::get('{id}/destroy', ['as' => 'destroy_product', 'uses' => 'AdminProductsController@destroy']);
+        Route::get('create', ['as' => 'new_user', 'uses' => 'AdminUsersController@create']);
 
-    Route::get('{id}/edit', ['as' => 'edit_product', 'uses' => 'AdminProductsController@edit']);
+        Route::get('{id?}/show', ['as' => 'show_user', 'uses' => 'AdminUsersController@show']);
 
-    Route::post('', ['as' => 'store_product', 'uses' => 'AdminProductsController@store']);
+        Route::get('destroy/{id}', ['as' => 'destroy_user', 'uses' => 'AdminUsersController@destroy']);
 
-    Route::put('{id}/update', ['as' => 'update_product', 'uses' => 'AdminProductsController@update']);
+        Route::get('{id}/edit', ['as' => 'edit_user', 'uses' => 'AdminUsersController@edit']);
+
+        Route::put('{id}/update', ['as' => 'update_user', 'uses' => 'AdminUsersController@update']);
+
+    });
 
 });
+
 
 
 

@@ -19,18 +19,20 @@
 
                 <tr>
                     <td>{{ $Categoria->id }}</td>
-                    <td>{{ $Categoria->name }}</td>
-                    <td>{{ $Categoria->description }}</td>
+                    <td width="25%">{{ $Categoria->name }}</td>
+                    <td width="50%">{{ $Categoria->description }}</td>
                     <td>
-                        <a href="{{ route('edit_category',['id'=>$Categoria->id] ) }}" class="btn btn-default">Editar</a>
-                        <a href="{{ route('show_category',['id'=>$Categoria->id] ) }}" class="btn btn-default">Consultar</a>
-                        <a href="{{ route('destroy_category',['id'=>$Categoria->id] ) }}" class="btn btn-default">Excluir</a>
+                        <a href="{{ route('edit_category',['id'=>$Categoria->id] ) }}" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></a>
+                        <a href="{{ route('show_category',['id'=>$Categoria->id] ) }}" class="btn btn-default"><span class="glyphicon glyphicon-search"></a>
+                        <a href="{{ route('destroy_category',['id'=>$Categoria->id] ) }}" class="btn btn-default"><span class="glyphicon glyphicon-remove"></a>
                     </td>
                 </tr>
 
             @endforeach
 
         </table>
+
+        {!! $Categorias->render() !!}
 
     </div>
 @endsection
