@@ -23,6 +23,8 @@ class AdminCategoriesController extends Controller {
      */
 	public function index()
 	{
+//        dd($this->Categorias->find(1)->Products);
+
         $Categorias = $this->Categorias->paginate(5);
 		return view('categoria.index', compact('Categorias'));
 	}

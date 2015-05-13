@@ -53,7 +53,7 @@
                         <small>{{ ($Produto->recommend)?'Sim':'Não' }}</small>
                     </td>
                     <td>
-                        <small>{{ $Produto->Category->name }}</small>
+                        <small>{{ $Produto->Category['name'] }}</small>
                     </td>
                     <td>
                         <a href="{{ route('edit_product',['id'=>$Produto->id] ) }}" class="btn btn-default"><span

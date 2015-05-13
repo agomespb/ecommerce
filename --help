@@ -1,0 +1,35 @@
+[33mcommit 23077778ae789e7d90d1f7985cac2e7bf3c24130[m
+Author: Alexandre Gomes do Nascimento <agomespb@gmail.com>
+Date:   Tue May 12 09:33:13 2015 -0300
+
+    6o Commit: CRUDs - Correção (Featured e Recommend) ao Editar
+
+[33mcommit 9611d63f379d3bef1214278db1ff53178a5e7108[m
+Author: Alexandre Gomes do Nascimento <agomespb@gmail.com>
+Date:   Sat May 9 13:51:26 2015 -0300
+
+    5o Commit: CRUDs Criados.
+
+[33mcommit a877b9b00add9eb0b1c97a4a4025e5009c5e3925[m
+Author: Alexandre Gomes do Nascimento <agomespb@gmail.com>
+Date:   Fri May 8 11:28:37 2015 -0300
+
+    4o Commit: Criação de Rotas
+
+[33mcommit ec9fc5f4a8eca4a5adc52dee8db983f10a11fd6e[m
+Author: Alexandre Gomes do Nascimento <agomespb@gmail.com>
+Date:   Thu May 7 17:58:51 2015 -0300
+
+    3o Commit: Criando os primeiros Models
+
+[33mcommit ed7b986e2314f941dcf549ed2afe7c8692a71aaf[m
+Author: Alexandre Gomes do Nascimento <agomespb@gmail.com>
+Date:   Thu May 7 14:29:31 2015 -0300
+
+    Segundo Commit: NameSpace Atualizado para AGCommerce
+
+[33mcommit 268f55e4c329dc80fbe75877f73ed4d9ebeace8d[m
+Author: Alexandre Gomes do Nascimento <agomespb@gmail.com>
+Date:   Thu May 7 14:01:26 2015 -0300
+
+    Primeiro Commit: Instação do Laravel 5

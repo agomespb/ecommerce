@@ -5,7 +5,7 @@
 	<div class="row">
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
-				<div class="panel-heading">Register</div>
+				<div class="panel-heading">Atualizar</div>
 				<div class="panel-body">
 					@if (count($errors) > 0)
 						<div class="alert alert-danger">
@@ -18,19 +18,21 @@
 						</div>
 					@endif
 
-                        {!! Form::open(['route'=>'store_user', 'class'=>'form-horizontal']) !!}
+                    <h1 CLASS="text-center">AGUARDANDO ORIENTAÇÕES</h1>
+
+                        {!! Form::open(['route'=>['update_user', $Usuario->id], 'class'=>'form-horizontal', 'method'=>'put']) !!}
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">Nome</label>
 							<div class="col-md-6">
-                                {!! Form::text('name',old('name'),['class'=>'form-control']) !!}
+                                {!! Form::text('name', $Usuario->name,['class'=>'form-control']) !!}
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">Endereço de E-Mail</label>
 							<div class="col-md-6">
-                                {!! Form::email('email',old('email'),['class'=>'form-control']) !!}
+                                {!! Form::email('email', $Usuario->email,['class'=>'form-control']) !!}
 							</div>
 						</div>
 
@@ -50,10 +52,8 @@
 
 						<div class="form-group">
 							<div class="col-md-6 col-md-offset-4">
-								<button type="submit" class="btn btn-primary">
-									Registrar
-								</button>
-                                <a href="{{ route('users') . $Page }}" class="btn btn-default">Voltar</a>
+								{{--<button type="submit" class="btn btn-primary">Salvar</button>--}}
+                                <a href="{{ route('users') }}" class="btn btn-primary form-control">AGUARDANDO ORIENTAÇÕES: Voltar</a>
 							</div>
 						</div>
                         {!! Form::close() !!}

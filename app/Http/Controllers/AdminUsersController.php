@@ -2,13 +2,30 @@
 
 use AGCommerce\User;
 use AGCommerce\Http\Requests\UserRequest;
+use Illuminate\Http\Request;
 
 class AdminUsersController extends Controller {
 
     private $Usuarios;
+    private $Page;
+    private $Request;
 
-    public function __construct(User $Users){
+    public function __construct(User $Users, Request $Request)
+    {
+        $this->Request = $Request;
         $this->Usuarios = $Users;
+    }
+
+    /**
+     * Consulta um Usuário em database.sqlite
+     *
+     * @return Response
+     */
+    public function show($id, Request $Request)
+    {
+        $Page = $this->getPage();
+        $Usuario = $this->Usuarios->find($id);
+        return view('user.show', compact('Usuario', 'Page'));
     }
 
     /**
@@ -18,8 +35,9 @@ class AdminUsersController extends Controller {
      */
     public function index()
     {
+        $Page = $this->getPage();
         $Usuarios = $this->Usuarios->paginate(5);
-        return view('user.index', compact('Usuarios'));
+        return view('user.index', compact('Usuarios', 'Page'));
     }
 
     /**
@@ -29,7 +47,8 @@ class AdminUsersController extends Controller {
      */
     public function create()
     {
-        return view('user.create');
+        $Page = $this->getPage();
+        return view('user.create', compact('Page'));
     }
 
     /**
@@ -58,14 +77,14 @@ class AdminUsersController extends Controller {
     }
 
     /**
-     * Consulta um produto em database.sqlite
+     * Editar/Alualizar Usuario em database.sqlite
      *
      * @return Response
      */
-    public function show($id)
+    public function edit($id)
     {
-//        $Usuario = $this->Usuarios->find($id);
-//        return view('user.show', compact('Usuario'));
+        $Usuario = $this->Usuarios->find($id);
+        return view('user.edit', compact('Usuario'));
     }
 
     /**
@@ -73,22 +92,25 @@ class AdminUsersController extends Controller {
      *
      * @return Response
      */
-    public function edit($id, Category $Categoria)
+    public function update(UserRequest $Request, $id)
     {
-//        $Produto = $this->Produtos->find($id);
-//        $Categorias = $Categoria->lists('name', 'id');
-//        return view('produto.edit', compact('Produto', 'Categorias'));
+
+        $this->Usuarios->find($id)->update($Request->all());
+        return redirect()->route('users');
     }
 
     /**
-     * Editar/Alualizar um Produto em database.sqlite
-     *
-     * @return Response
+     * @return string
+     * @internal param Request $Request
      */
-    public function update(ProductRequest $Request, $id)
+    private function getPage()
     {
+        $page = 1;
 
-//        $this->Produtos->find($id)->update($Request->all());
-//        return redirect()->route('products');
+        if(!is_null($this->Request->get('page'))):
+            $page = $this->Request->get('page');
+        endif;
+
+        return $this->Page = '?page=' . $page;
     }
 }

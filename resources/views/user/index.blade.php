@@ -5,7 +5,7 @@
 
         <h2>Usuarios</h2>
         <hr>
-        <a href="{{ route('new_user') }}" class="btn btn-default">Adicionar Usuario</a> <br/><br/>
+        <a href="{{ route('new_user') . $Page }}" class="btn btn-default">Adicionar Usuario</a> <br/><br/>
 
         <table class="table">
             <tr>
@@ -36,7 +36,7 @@
                     <td>
                         <a href="{{ route('edit_user',['id'=>$Usuario->id] ) }}" class="btn btn-default"><span
                                     class="glyphicon glyphicon-pencil"></span></a>
-                        <a href="{{ route('show_user',['id'=>$Usuario->id] ) }}" class="btn btn-default"><span
+                        <a href="{{ route('show_user',['id'=>$Usuario->id] ) . $Page }}" class="btn btn-default"><span
                                     class="glyphicon glyphicon-search"></span></a>
                         <a href="{{ route('destroy_user',['id'=>$Usuario ->id] ) }}" class="btn btn-default"><span
                                     class="glyphicon glyphicon-remove"> </a>
@@ -50,6 +50,7 @@
         {!! $Usuarios->render() !!}
 
     </div>
+
 @endsection
 
 @section('libjs')
