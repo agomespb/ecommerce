@@ -13,7 +13,7 @@ class Category extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function Products()
+    public function products()
     {
 
         return $this->hasMany('\AGCommerce\Product');

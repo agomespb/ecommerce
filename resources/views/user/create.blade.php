@@ -53,7 +53,7 @@
 								<button type="submit" class="btn btn-primary">
 									Registrar
 								</button>
-                                <a href="{{ route('users') . $Page }}" class="btn btn-default">Voltar</a>
+                                <a href="{{ route('users') . $page }}" class="btn btn-default">Voltar</a>
 							</div>
 						</div>
                         {!! Form::close() !!}

@@ -13,7 +13,7 @@ class Product extends Model {
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function Category()
+    public function category()
     {
 
         return $this->belongsTo('\AGCommerce\Category');

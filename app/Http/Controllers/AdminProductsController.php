@@ -6,10 +6,10 @@ use AGCommerce\Http\Requests\produto\ProductRequest;
 
 class AdminProductsController extends Controller {
 
-    private $Produtos;
+    private $produtos;
 
-    public function __construct(Product $Produtos){
-        $this->Produtos = $Produtos;
+    public function __construct(Product $produtos){
+        $this->produtos = $produtos;
     }
 
     /**
@@ -19,8 +19,8 @@ class AdminProductsController extends Controller {
      */
     public function index()
     {
-        $Produtos = $this->Produtos->paginate(5);
-        return view('produto.index', compact('Produtos'));
+        $produtos = $this->produtos->paginate(5);
+        return view('produto.index', compact('produtos'));
     }
 
     /**
@@ -28,10 +28,10 @@ class AdminProductsController extends Controller {
      *
      * @return Response
      */
-    public function create(Category $Categoria)
+    public function create(Category $categoria)
     {
-        $Categorias = $Categoria->lists('name', 'id');
-        return view('produto.create', compact('Categorias'));
+        $categorias = $categoria->lists('name', 'id');
+        return view('produto.create', compact('categorias'));
     }
 
     /**
@@ -41,57 +41,57 @@ class AdminProductsController extends Controller {
      */
     public function show($id)
     {
-        $Produto = $this->Produtos->find($id);
-        return view('produto.show', compact('Produto'));
+        $produto = $this->produtos->find($id);
+        return view('produto.show', compact('produto'));
     }
 
 
     /**
-     * Insere uma Produto em database.sqlite
+     * Insere uma produto em database.sqlite
      *
      * @return Response
      */
-    public function store(ProductRequest $Request)
+    public function store(ProductRequest $request)
     {
-        $Input = $Request->all();
-        $Categoria = $this->Produtos->fill($Input);
-        $Categoria->save();
+        $Input = $request->all();
+        $categoria = $this->produtos->fill($Input);
+        $categoria->save();
 
         return redirect()->route('products');
     }
 
     /**
-     * Exclui um Produto em database.sqlite
+     * Exclui um produto em database.sqlite
      *
      * @return Response
      */
     public function destroy($id)
     {
-        $Categoria = $this->Produtos->find($id)->delete();
+        $categoria = $this->produtos->find($id)->delete();
         return redirect()->route('products');
     }
 
     /**
-     * Editar/Alualizar um Produto em database.sqlite
+     * Editar/Alualizar um produto em database.sqlite
      *
      * @return Response
      */
-    public function edit($id, Category $Categoria)
+    public function edit($id, Category $categoria)
     {
-        $Produto = $this->Produtos->find($id);
-        $Categorias = $Categoria->lists('name', 'id');
-        return view('produto.edit', compact('Produto', 'Categorias'));
+        $produto = $this->produtos->find($id);
+        $categorias = $categoria->lists('name', 'id');
+        return view('produto.edit', compact('produto', 'categorias'));
     }
 
     /**
-     * Editar/Alualizar um Produto em database.sqlite
+     * Editar/Alualizar um produto em database.sqlite
      *
      * @return Response
      */
-    public function update(ProductRequest $Request, $id)
+    public function update(ProductRequest $request, $id)
     {
 
-        $this->Produtos->find($id)->update($Request->all());
+        $this->produtos->find($id)->update($request->all());
         return redirect()->route('products');
     }
 }

@@ -3,9 +3,18 @@
 @section('content')
     <div class="container">
 
-        <h2>Produtos</h2>
-        <hr>
+        <h2>Produtos</h2><hr>
+
         <a href="{{ URL::route('new_product') }}" class="btn btn-default">Adicionar Produto</a> <br/><br/>
+
+        @if(Session::has('flash_message'))
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert">
+                    <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                </button>
+                <strong>Ops!</strong> {{ Session::get('flash_message') }}
+            </div>
+        @endif
 
         <table class="table">
             <tr>
@@ -33,34 +42,34 @@
                 </th>
             </tr>
 
-            @foreach($Produtos as $Produto)
+            @foreach($produtos as $produto)
 
                 <tr>
-                    <td>{{ $Produto->id }}</td>
+                    <td>{{ $produto->id }}</td>
                     <td width="20%">
-                        <small>{{ $Produto->name }}</small>
+                        <small>{{ $produto->name }}</small>
                     </td>
                     <td>
-                        <small>{{ number_format($Produto->price, 2, ',', '.') }}</small>
+                        <small>{{ number_format($produto->price, 2, ',', '.') }}</small>
                     </td>
                     <td width="25%">
-                        <small>{{ $Produto->description }}</small>
+                        <small>{{ $produto->description }}</small>
                     </td>
                     <td>
-                        <small>{{ ($Produto->featured)?'Sim':'Não' }}</small>
+                        <small>{{ ($produto->featured)?'Sim':'Não' }}</small>
                     </td>
                     <td>
-                        <small>{{ ($Produto->recommend)?'Sim':'Não' }}</small>
+                        <small>{{ ($produto->recommend)?'Sim':'Não' }}</small>
                     </td>
                     <td>
-                        <small>{{ $Produto->Category['name'] }}</small>
+                        <small>{{ $produto->category->name }}</small>
                     </td>
                     <td>
-                        <a href="{{ route('edit_product',['id'=>$Produto->id] ) }}" class="btn btn-default"><span
+                        <a href="{{ route('edit_product',['id'=>$produto->id] ) }}" class="btn btn-default"><span
                                     class="glyphicon glyphicon-pencil"></span></a>
-                        <a href="{{ route('show_product',['id'=>$Produto->id] ) }}" class="btn btn-default"><span
+                        <a href="{{ route('show_product',['id'=>$produto->id] ) }}" class="btn btn-default"><span
                                     class="glyphicon glyphicon-search"></span></a>
-                        <a href="{{ route('destroy_product',['id'=>$Produto->id] ) }}" class="btn btn-default"><span
+                        <a href="{{ route('destroy_product',['id'=>$produto->id] ) }}" class="btn btn-default"><span
                                     class="glyphicon glyphicon-remove"></a>
                     </td>
                 </tr>
@@ -69,7 +78,7 @@
 
         </table>
 
-        {!! $Produtos->render() !!}
+        {!! $produtos->render() !!}
 
     </div>
 @endsection

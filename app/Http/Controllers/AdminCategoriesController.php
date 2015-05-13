@@ -2,18 +2,15 @@
 
 use AGCommerce\Category;
 use AGCommerce\Http\Requests\categoria\CategoryRequest;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-
+use Illuminate\Support\Facades\Session;
 
 class AdminCategoriesController extends Controller {
 
+    private $categorias;
 
-    private $Categorias;
-
-    public function __construct(Category $Categorias)
+    public function __construct(Category $categorias)
     {
-        $this->Categorias = $Categorias;
+        $this->categorias = $categorias;
     }
 
     /**
@@ -23,10 +20,10 @@ class AdminCategoriesController extends Controller {
      */
 	public function index()
 	{
-//        dd($this->Categorias->find(1)->Products);
+//        dd($this->categorias->find(1)->Products);
 
-        $Categorias = $this->Categorias->paginate(5);
-		return view('categoria.index', compact('Categorias'));
+        $categorias = $this->categorias->paginate(5);
+		return view('categoria.index', compact('categorias'));
 	}
 
     /**
@@ -46,8 +43,8 @@ class AdminCategoriesController extends Controller {
      */
 	public function show($id)
 	{
-        $Categoria = $this->Categorias->find($id);
-        return view('categoria.show', compact('Categoria'));
+        $categoria = $this->categorias->find($id);
+        return view('categoria.show', compact('categoria'));
 	}
 
     /**
@@ -55,10 +52,10 @@ class AdminCategoriesController extends Controller {
      *
      * @return Response
      */
-	public function store(CategoryRequest $Request)
+	public function store(CategoryRequest $request)
 	{
-        $Input = $Request->all();
-        $Categoria = $this->Categorias->fill($Input);
+        $Input = $request->all();
+        $Categoria = $this->categorias->fill($Input);
         $Categoria->save();
 
         return redirect()->route('categories');
@@ -71,7 +68,15 @@ class AdminCategoriesController extends Controller {
      */
 	public function destroy($id)
 	{
-        $Categoria = $this->Categorias->find($id)->delete();
+        $categoria = $this->categorias->find($id);
+
+        if( count($categoria->products) ):
+            Session::flash('flash_message', 'Não é possível excluir. Existem produtos relacionados a esta categoria.');
+        else:
+            $categoria->delete();
+            Session::flash('flash_message', 'Categoria excluída com sucesso!');
+        endif;
+
         return redirect()->route('categories');
 	}
 
@@ -82,8 +87,8 @@ class AdminCategoriesController extends Controller {
      */
 	public function edit($id)
 	{
-        $Categoria = $this->Categorias->find($id);
-        return view('categoria.edit', compact('Categoria'));
+        $categoria = $this->categorias->find($id);
+        return view('categoria.edit', compact('categoria'));
 	}
 
     /**
@@ -91,9 +96,9 @@ class AdminCategoriesController extends Controller {
      *
      * @return Response
      */
-	public function update(CategoryRequest $Request, $id)
+	public function update(CategoryRequest $request, $id)
 	{
-        $this->Categorias->find($id)->update($Request->all());
+        $this->categorias->find($id)->update($request->all());
         return redirect()->route('categories');
 	}
 

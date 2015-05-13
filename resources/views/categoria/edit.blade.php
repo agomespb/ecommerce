@@ -4,7 +4,7 @@
 @section('content')
     <div class="container">
 
-        <h2>Atualizar Categoria: {{ $Categoria->name }} </h2>
+        <h2>Atualizar Categoria: {{ $categoria->name }} </h2>
         <hr>
 
         <a href="{{ URL::route('categories') }}" class="btn btn-default">Voltar</a>
@@ -23,19 +23,19 @@
             <hr>
         @endif
 
-        {!! Form::open(['route'=>['update_category', $Categoria->id], 'method'=>'put']) !!}
+        {!! Form::open(['route'=>['update_category', $categoria->id], 'method'=>'put']) !!}
 
         <div class="form form-group">
 
             {!! Form::label('name', 'Nome:') !!}
-            {!! Form::text('name',$Categoria->name,['class'=>'form-control']) !!}
+            {!! Form::text('name',$categoria->name,['class'=>'form-control']) !!}
 
         </div>
 
         <div class="form form-group">
 
             {!! Form::label('description', 'Descrição:') !!}
-            {!! Form::textarea('description', $Categoria->description,['class'=>'form-control']) !!}
+            {!! Form::textarea('description', $categoria->description,['class'=>'form-control']) !!}
 
         </div>
 

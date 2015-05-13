@@ -52,7 +52,7 @@ Route::group(['prefix' => 'admin', 'where' => ['id'=>'[0-9]+']], function(){
 
         Route::get('{id?}/show', ['as' => 'show_category', 'uses' => 'AdminCategoriesController@show']);
 
-        Route::get('{id}/destroy', ['as' => 'destroy_category', 'uses' => 'AdminCategoriesController@destroy']);
+        Route::get('destroy/{id}', ['as' => 'destroy_category', 'uses' => 'AdminCategoriesController@destroy']);
 
         Route::get('{id}/edit', ['as' => 'edit_category', 'uses' => 'AdminCategoriesController@edit']);
 

@@ -6,14 +6,14 @@ use Illuminate\Http\Request;
 
 class AdminUsersController extends Controller {
 
-    private $Usuarios;
-    private $Page;
-    private $Request;
+    private $usuarios;
+    private $page;
+    private $request;
 
-    public function __construct(User $Users, Request $Request)
+    public function __construct(User $users, Request $request)
     {
-        $this->Request = $Request;
-        $this->Usuarios = $Users;
+        $this->request = $request;
+        $this->usuarios = $users;
     }
 
     /**
@@ -21,11 +21,11 @@ class AdminUsersController extends Controller {
      *
      * @return Response
      */
-    public function show($id, Request $Request)
+    public function show($id, Request $request)
     {
-        $Page = $this->getPage();
-        $Usuario = $this->Usuarios->find($id);
-        return view('user.show', compact('Usuario', 'Page'));
+        $page = $this->getPage();
+        $usuario = $this->usuarios->find($id);
+        return view('user.show', compact('usuario', 'page'));
     }
 
     /**
@@ -35,9 +35,9 @@ class AdminUsersController extends Controller {
      */
     public function index()
     {
-        $Page = $this->getPage();
-        $Usuarios = $this->Usuarios->paginate(5);
-        return view('user.index', compact('Usuarios', 'Page'));
+        $page = $this->getPage();
+        $usuarios = $this->usuarios->paginate(5);
+        return view('user.index', compact('usuarios', 'page'));
     }
 
     /**
@@ -47,8 +47,8 @@ class AdminUsersController extends Controller {
      */
     public function create()
     {
-        $Page = $this->getPage();
-        return view('user.create', compact('Page'));
+        $page = $this->getPage();
+        return view('user.create', compact('page'));
     }
 
     /**
@@ -56,23 +56,23 @@ class AdminUsersController extends Controller {
      *
      * @return Response
      */
-    public function store(UserRequest $Request)
+    public function store(UserRequest $request)
     {
-        $Input = $Request->all();
-        $Usuario = $this->Usuarios->fill($Input);
-        $Usuario->save();
+        $input = $request->all();
+        $usuario = $this->usuarios->fill($input);
+        $usuario->save();
 
         return redirect()->route('users');
     }
 
     /**
-     * Exclui um Produto em database.sqlite
+     * Exclui um Usuário em database.sqlite
      *
      * @return Response
      */
     public function destroy($id)
     {
-        $Usuario = $this->Usuarios->find($id)->delete();
+        $usuario = $this->usuarios->find($id)->delete();
         return redirect()->route('users');
     }
 
@@ -83,32 +83,32 @@ class AdminUsersController extends Controller {
      */
     public function edit($id)
     {
-        $Usuario = $this->Usuarios->find($id);
-        return view('user.edit', compact('Usuario'));
+        $usuario = $this->usuarios->find($id);
+        return view('user.edit', compact('usuario'));
     }
 
     /**
-     * Editar/Alualizar um Produto em database.sqlite
+     * Editar/Alualizar um Usuário em database.sqlite
      *
      * @return Response
      */
-    public function update(UserRequest $Request, $id)
+    public function update(UserRequest $request, $id)
     {
 
-        $this->Usuarios->find($id)->update($Request->all());
+        $this->usuarios->find($id)->update($request->all());
         return redirect()->route('users');
     }
 
     /**
      * @return string
-     * @internal param Request $Request
+     * @internal param Request $request
      */
     private function getPage()
     {
         $page = 1;
 
-        if(!is_null($this->Request->get('page'))):
-            $page = $this->Request->get('page');
+        if(!is_null($this->request->get('page'))):
+            $page = $this->request->get('page');
         endif;
 
         return $this->Page = '?page=' . $page;
