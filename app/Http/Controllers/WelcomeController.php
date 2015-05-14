@@ -1,21 +1,24 @@
 <?php namespace AGCommerce\Http\Controllers;
 
+
 use AGCommerce\Category;
+use AGCommerce\Product;
 
 class WelcomeController extends Controller {
 
-    private $Categorias;
-
+    private $categorias;
+    private $produtos;
 
 	/**
 	 * Create a new controller instance.
 	 *
 	 * @return void
 	 */
-	public function __construct(Category $categoria)
+	public function __construct(Category $categorias, Product $produtos)
 	{
 		$this->middleware('guest');
-        $this->Categorias = $categoria;
+        $this->produtos = $produtos;
+        $this->categorias = $categorias;
 	}
 
 	/**
@@ -25,19 +28,12 @@ class WelcomeController extends Controller {
 	 */
 	public function index()
 	{
-		return view('welcome');
+        $produtos = $this->produtos->paginate(6);
+        $categorias = $this->categorias->lists('name', 'id');
+
+
+        return view('template', compact('produtos', 'categorias'));
 	}
 
-	/**
-	 * Lista todas as categorias do database.sqlite
-	 *
-	 * @return Response
-	 */
-	public function exemplo()
-	{
-        $Categorias = $this->Categorias->all();
-
-		return view('exemplo.exemplo', compact('Categorias'));
-	}
 
 }

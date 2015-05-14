@@ -69,8 +69,12 @@
                                     class="glyphicon glyphicon-pencil"></span></a>
                         <a href="{{ route('show_product',['id'=>$produto->id] ) }}" class="btn btn-default"><span
                                     class="glyphicon glyphicon-search"></span></a>
-                        <a href="{{ route('destroy_product',['id'=>$produto->id] ) }}" class="btn btn-default"><span
-                                    class="glyphicon glyphicon-remove"></a>
+                        <a href="{{ route('destroy_product',['id'=>$produto->id] ) }}" class="btn btn-default">
+                            <span class="glyphicon glyphicon-remove">
+                        </a>
+                        <a href="{{ route('products_images',['id'=>$produto->id] ) }}" class="btn btn-default">
+                            <span class="glyphicon glyphicon-camera">
+                        </a>
                     </td>
                 </tr>
 

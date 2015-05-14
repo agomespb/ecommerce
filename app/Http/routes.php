@@ -11,7 +11,6 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
 
 Route::get('home', 'HomeController@index');
 
@@ -27,6 +26,15 @@ Route::controllers([
  **************************************************************************
  */
 //Route::pattern('id', '[0-9]+');
+
+/*
+|--------------------------------------------------------------------------
+| Ambiente da Loja!!!
+|--------------------------------------------------------------------------
+*/
+
+Route::get('/', 'StoreController@index');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -81,6 +89,19 @@ Route::group(['prefix' => 'admin', 'where' => ['id'=>'[0-9]+']], function(){
         Route::get('{id}/edit', ['as' => 'edit_product', 'uses' => 'AdminProductsController@edit']);
 
         Route::put('{id}/update', ['as' => 'update_product', 'uses' => 'AdminProductsController@update']);
+
+
+        Route::group(['prefix' => 'images'], function(){
+
+            Route::get('{id}/index', ['as' => 'products_images', 'uses' => 'AdminProductsController@images']);
+
+            Route::get('{id}/create', ['as' => 'products_images_create', 'uses' => 'AdminProductsController@createImage']);
+
+            Route::get('destroy/{id}', ['as' => 'products_images_destroy', 'uses' => 'AdminProductsController@destroyImage']);
+
+            Route::post('{id}/store', ['as' => 'products_images_store', 'uses' => 'AdminProductsController@storeImage']);
+
+        });
 
     });
 
