@@ -1,7 +1,7 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
@@ -9,18 +9,15 @@
     <title>Home | E-Shop</title>
 
 
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/font-awesome.min.css" rel="stylesheet">
-    <link href="css/prettyPhoto.css" rel="stylesheet">
-    <link href="css/animate.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
-    <link href="css/responsive.css" rel="stylesheet">
+    <link href="css/all.css" rel="stylesheet">
 
 
-</head><!--/head-->
+</head>
+<!--/head-->
 
 <body>
 <header id="header"><!--header-->
+
     <div class="header_top"><!--header_top-->
         <div class="container">
             <div class="row">
@@ -43,7 +40,8 @@
                 </div>
             </div>
         </div>
-    </div><!--/header_top-->
+    </div>
+    <!--/header_top-->
 
     <div class="header-middle"><!--header-middle-->
         <div class="container">
@@ -57,22 +55,26 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li><a href="#"><i class="fa fa-user"></i> Minha conta</a></li>
-                            <li><a href="http://commerce.dev:10088/checkout"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="http://commerce.dev:10088/cart"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
+                            <li><a href="http://commerce.dev:10088/checkout"><i class="fa fa-crosshairs"></i>
+                                    Checkout</a></li>
+                            <li><a href="http://commerce.dev:10088/cart"><i class="fa fa-shopping-cart"></i>
+                                    Carrinho</a></li>
                             <li><a href="http://commerce.dev:10088/auth/login"><i class="fa fa-lock"></i> Login</a></li>
                         </ul>
                     </div>
                 </div>
             </div>
         </div>
-    </div><!--/header-middle-->
+    </div>
+    <!--/header-middle-->
 
     <div class="header-bottom"><!--header-bottom-->
         <div class="container">
             <div class="row">
                 <div class="col-sm-9">
                     <div class="navbar-header">
-                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target=".navbar-collapse">
                             <span class="sr-only">Toggle navigation</span>
                             <span class="icon-bar"></span>
                             <span class="icon-bar"></span>
@@ -103,9 +105,11 @@
                 </div>
             </div>
         </div>
-    </div><!--/header-bottom-->
-</header><!--/header-->
+    </div>
+    <!--/header-bottom-->
 
+</header>
+<!--/header-->
 
 
 <section>
@@ -137,12 +141,15 @@
         <div class="container">
             <div class="row">
                 <p class="pull-left">Copyright © 2013 E-Shop Inc. All rights reserved.</p>
-                <p class="pull-right">Designed by <span><a target="_blank" href="http://invoinn.com/">InvoInn</a></span></p>
+
+                <p class="pull-right">Designed by <span><a target="_blank" href="http://invoinn.com/">InvoInn</a></span>
+                </p>
             </div>
         </div>
     </div>
 
-</footer><!--/Footer-->
+</footer>
+<!--/Footer-->
 
 <script src="js/jquery.js"></script>
 <script src="js/bootstrap.min.js"></script>

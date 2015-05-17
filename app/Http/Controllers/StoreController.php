@@ -28,8 +28,8 @@ class StoreController extends Controller {
      */
     public function index()
     {
-        $produtosEmDestaque = $this->produtos->where('featured','=',1)->get();
-        $produtosRecomendados = $this->produtos->where('recommend','=',1)->get();
+        $produtosEmDestaque = $this->produtos->featured()->get();
+        $produtosRecomendados = $this->produtos->recommend()->get();
         $categorias = $this->categorias->lists('name', 'id');
 
         return view('store.index', compact('categorias', 'produtosEmDestaque', 'produtosRecomendados'));

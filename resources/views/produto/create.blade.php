@@ -55,6 +55,13 @@
 
         <div class="form form-group">
 
+            {!! Form::label('tags', 'Tags (separe com virgula):') !!}
+            {!! Form::textarea('tags',null,['class'=>'form-control']) !!}
+
+        </div>
+
+        <div class="form form-group">
+
             {!! Form::label('featured', 'Featured?:') !!}
             {!! Form::radio('featured', 1, null, ['class' => 'field', 'required']) !!} Sim
             {!! Form::radio('featured', 0, null, ['class' => 'field', 'required']) !!} Não

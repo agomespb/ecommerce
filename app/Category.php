@@ -15,9 +15,7 @@ class Category extends Model {
      */
     public function products()
     {
-
-        return $this->hasMany('\AGCommerce\Product');
-
+        return $this->hasMany('AGCommerce\Product');
     }
 
 }

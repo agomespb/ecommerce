@@ -14,7 +14,7 @@ class Product extends Model {
      */
     public function category()
     {
-        return $this->belongsTo('\AGCommerce\Category');
+        return $this->belongsTo('AGCommerce\Category');
     }
 
     public function images()
@@ -27,4 +27,25 @@ class Product extends Model {
         return $this->belongsToMany('AGCommerce\Tag');
     }
 
+    /**
+     * Retorna os Produtos em Destaque.
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeFeatured($query)
+    {
+        return $query->where('featured','=',1);
+    }
+
+    /**
+     * Retorna os Produtos Recomendados.
+     *
+     * @param $query
+     * @return mixed
+     */
+    public function scopeRecommend($query)
+    {
+        return $query->where('recommend','=',1);
+    }
 }

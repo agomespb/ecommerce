@@ -53,6 +53,14 @@
 
         </div>
 
+
+        <div class="form form-group">
+
+            {!! Form::label('tags', 'Tags (separe com virgula):') !!}
+            {!! Form::textarea('tags',$textareaTag,['class'=>'form-control']) !!}
+
+        </div>
+
         <div class="form form-group">
 
             {!! Form::label('featured', 'Featured?:') !!}

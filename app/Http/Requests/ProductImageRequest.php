@@ -22,7 +22,7 @@ class ProductImageRequest extends Request {
 	public function rules()
 	{
 		return [
-			'image' => 'image|max:30'
+			'image' => 'image|max:55'
 		];
 	}
 
