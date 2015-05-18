@@ -3,10 +3,10 @@
         <h2>Categorias</h2>
         <div class="panel-group category-products" id="accordian"><!--category-productsr-->
 
-            @foreach($categorias as $categoria)
+            @foreach($categorias as $id => $categoria)
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h4 class="panel-title"><a href="#">{{ $categoria }}</a></h4>
+                        <h4 class="panel-title"><a href="{{ route('index_category',['id'=>$id] ) }}">{{ $categoria }}</a></h4>
                     </div>
                 </div>
             @endforeach

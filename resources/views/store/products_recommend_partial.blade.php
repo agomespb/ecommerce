@@ -1,5 +1,5 @@
 
-<h2 class="title text-center">Recomendados</h2>
+<h2 class="title text-center">{{ (isset($category_id)) ? $categorias[$category_id] : '' }} Recomendados</h2>
 
 @foreach($produtosRecomendados as $produto)
     <div class="col-sm-4">

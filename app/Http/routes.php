@@ -33,7 +33,8 @@ Route::controllers([
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', 'StoreController@index');
+Route::get('/', ['as' => 'home', 'uses' => 'StoreController@index']);
+Route::get('index/{id}/category', ['as' => 'index_category', 'uses' => 'StoreController@indexCategory']);
 
 
 /*

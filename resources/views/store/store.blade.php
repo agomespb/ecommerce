@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | E-Shop</title>
+    <title>Home | AGCommerce</title>
 
 
-    <link href="css/all.css" rel="stylesheet">
+    <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
 
 
 </head>
@@ -151,7 +151,7 @@
 </footer>
 <!--/Footer-->
 
-<script src="js/all.js"></script>
+<script src="{{ elixir('js/all.js') }}"></script>
 
 </body>
 </html>

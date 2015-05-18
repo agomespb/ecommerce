@@ -11,6 +11,8 @@ var elixir = require('laravel-elixir');
  |
  */
 
+// OBSERVAÇÃO: para gerar os mimes: gulp --production
+
 elixir(function(mix) {
     mix.styles([
 
@@ -33,4 +35,8 @@ elixir(function(mix) {
         'main.js',
 
     ], 'public/js/all.js');
+
+    mix.version(['css/all.css', 'js/all.js']);
+
+    mix.copy('resources/assets/fonts', 'public/build/fonts');
 });

@@ -25,11 +25,11 @@
                 <th>
                     <small>Valor R$</small>
                 </th>
-                <th>
+                <th class="text-center">
                     <small>Descrição</small>
                 </th>
-                <th>
-                    <small>Featured?</small>
+                <th class="text-center">
+                    <small>Destaque</small>
                 </th>
                 <th>
                     <small>Recomendado</small>
@@ -55,10 +55,10 @@
                     <td width="25%">
                         <small>{{ $produto->description }}</small>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <small>{{ ($produto->featured)?'Sim':'Não' }}</small>
                     </td>
-                    <td>
+                    <td class="text-center">
                         <small>{{ ($produto->recommend)?'Sim':'Não' }}</small>
                     </td>
                     <td>

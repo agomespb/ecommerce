@@ -22,7 +22,7 @@ class StoreController extends Controller {
     }
 
     /**
-     * Show the application welcome screen to the user.
+     * Show the application.
      *
      * @return Response
      */
@@ -33,6 +33,23 @@ class StoreController extends Controller {
         $categorias = $this->categorias->lists('name', 'id');
 
         return view('store.index', compact('categorias', 'produtosEmDestaque', 'produtosRecomendados'));
+    }
+
+    /**
+     * Show the application For Category.
+     *
+     * @return Response
+     */
+    public function indexCategory($id)
+    {
+        $category_id = $id;
+        $this->produtos->setCategoryId($category_id);
+
+        $produtosEmDestaque = $this->produtos->featuredCategory()->get();
+        $produtosRecomendados = $this->produtos->recommendCategory()->get();
+        $categorias = $this->categorias->lists('name', 'id');
+
+        return view('store.index', compact('categorias', 'category_id', 'produtosEmDestaque', 'produtosRecomendados'));
     }
 
 }

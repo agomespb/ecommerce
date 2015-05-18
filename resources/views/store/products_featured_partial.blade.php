@@ -1,5 +1,5 @@
 
-<h2 class="title text-center">Em destaque</h2>
+<h2 class="title text-center">{{ (isset($category_id)) ? $categorias[$category_id] : '' }} Em destaque</h2>
 
 @foreach($produtosEmDestaque as $produto)
     <div class="col-sm-4">

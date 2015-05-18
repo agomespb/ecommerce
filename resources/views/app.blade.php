@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Laravel</title>
 
-	<link href="{{ asset('css/all.css') }}" rel="stylesheet">
+	<link href="{{ elixir('css/all.css') }}" rel="stylesheet">
 
 	<!-- Fonts -->
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -59,7 +59,7 @@
 	@yield('content')
 
 	<!-- Scripts -->
-	<script src="js/all.js"></script>
+	<script src="{{ elixir('js/all.js') }}"></script>
 
     @yield('libjs')
 
