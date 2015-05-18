@@ -6,16 +6,17 @@ use AGCommerce\Product;
 use AGCommerce\Http\Requests\produto\ProductRequest;
 use AGCommerce\ProductImage;
 use AGCommerce\Tag;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
 class AdminProductsController extends Controller {
 
     private $produtos;
+    private $tags;
 
-    public function __construct(Product $produtos){
+    public function __construct(Product $produtos, Tag $tags){
         $this->produtos = $produtos;
+        $this->tags = $tags;
     }
 
     /**
@@ -56,7 +57,7 @@ class AdminProductsController extends Controller {
      *
      * @return Response
      */
-    public function store(ProductRequest $request, Tag $tag)
+    public function store(ProductRequest $request)
     {
         $Input = $request->all();
         $createTags = array_map('trim', explode(',', $Input['tags']));
@@ -66,23 +67,11 @@ class AdminProductsController extends Controller {
         $produto = $this->produtos->fill($Input);
         $produto->save();
 
-        $syncTag = [];
-
-        foreach($createTags as $createTag){
-
-            $findTag = $tag->where('name', '=', $createTag)->get();
-            if( count($findTag) ){
-                foreach($findTag as $_tag){
-                    $syncTag[] = $_tag->id;
-                }
-            } else {
-                $newTag = $tag->create(['name'=>$createTag]);
-                $syncTag[] = $newTag->id;
-            }
-
+        if( count($createTags) )
+        {
+            $syncTag = $this->tagsForSync($createTags);
+            $produto->tags()->sync($syncTag);
         }
-
-        $produto->tags()->sync($syncTag);
 
         return redirect()->route('products');
     }
@@ -125,7 +114,7 @@ class AdminProductsController extends Controller {
 
         if(count($produto->tags)){
             $tags = $produto->tags->lists('name');
-            $textareaTag = implode(',', $tags);
+            $textareaTag = implode(', ', $tags);
         }
 
         $categorias = $categoria->lists('name', 'id');
@@ -137,28 +126,14 @@ class AdminProductsController extends Controller {
      *
      * @return Response
      */
-    public function update(ProductRequest $request, $id, Tag $tag)
+    public function update(ProductRequest $request, $id)
     {
         $updateProduto = $request->all();
         $updateTags = array_map('trim', explode(',',$updateProduto['tags']));
 
         unset($updateProduto['tags']);
 
-        $syncTag = [];
-
-        foreach($updateTags as $upTag){
-
-            $findTag = $tag->where('name', '=', $upTag)->get();
-            if( count($findTag) ){
-                foreach($findTag as $_tag){
-                    $syncTag[] = $_tag->id;
-                }
-            } else {
-                $newTag = $tag->create(['name'=>$upTag]);
-                $syncTag[] = $newTag->id;
-            }
-
-        }
+        $syncTag = $this->tagsForSync($updateTags);
 
         $this->produtos->find($id)->update($updateProduto);
         $this->produtos->find($id)->tags()->sync($syncTag);
@@ -212,6 +187,39 @@ class AdminProductsController extends Controller {
             return true;
         }
         return false;
+    }
+
+    /**
+     * <b>tagsForSync</b>
+     * Retorna ids das tags
+     *
+     * @param array $tags
+     * @return array
+     */
+    private function tagsForSync($tags)
+    {
+        $syncTag = [];
+
+        foreach($tags as $tag){
+
+            $findTag = $this->tags->where('name', '=', $tag)->get();
+
+            if( count($findTag) ){
+
+                foreach($findTag as $_tag){
+                    $syncTag[] = $_tag->id;
+                }
+
+            } else {
+
+                $newTag = $this->tags->create(['name'=>$tag]);
+                $syncTag[] = $newTag->id;
+
+            }
+
+        }
+
+        return $syncTag;
     }
 
 }

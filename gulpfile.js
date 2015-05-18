@@ -22,4 +22,15 @@ elixir(function(mix) {
             'responsive.css',
 
         ], 'public/css/all.css');
+
+    mix.scripts([
+
+        'jquery.js',
+        'bootstrap.min.js',
+        'jquery.scrollUp.min.js',
+        'price-range.js',
+        'jquery.prettyPhoto.js',
+        'main.js',
+
+    ], 'public/js/all.js');
 });

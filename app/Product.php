@@ -48,4 +48,6 @@ class Product extends Model {
     {
         return $query->where('recommend','=',1);
     }
+
+
 }
