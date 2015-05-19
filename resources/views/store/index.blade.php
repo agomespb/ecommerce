@@ -1,6 +1,6 @@
 @extends('store.store')
 
-@section('categories')
+@section('sidebar_left')
     @include('store.categories_partial')
 @stop
 

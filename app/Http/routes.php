@@ -34,7 +34,13 @@ Route::controllers([
 */
 
 Route::get('/', ['as' => 'home', 'uses' => 'StoreController@index']);
-Route::get('index/{id}/category', ['as' => 'index_category', 'uses' => 'StoreController@indexCategory']);
+
+Route::group(['prefix' => 'loja', 'where' => ['id'=>'[0-9]+']], function() {
+
+    Route::get('category/{id}/show', ['as' => 'index_category', 'uses' => 'StoreController@indexCategory']);
+    Route::get('product/{id}/show', ['as' => 'product_show', 'uses' => 'StoreController@productShow']);
+
+});
 
 
 /*

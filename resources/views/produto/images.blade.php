@@ -7,7 +7,7 @@
 
         <a href="{{ URL::route('products_images_create', $produto->id) }}" class="btn btn-default">Adicionar Imagem</a>
         <a href="{{ route('products') }}" class="btn btn-default pull-right">
-            <span class="glyphicon glyphicon-chevron-left"></span>  Voltar
+            <i class="fa fa-chevron-left"></i> Voltar
         </a>
         <br/><br/>
 

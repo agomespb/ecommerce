@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Home | AGCommerce</title>
-
+    <title>Home | eAGC</title>
 
     <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
-
+    <link rel="shortcut icon" href="{{ url('loja_favicon.jpg') }}">
+    @yield('css_customizado')
 
 </head>
 <!--/head-->
@@ -55,11 +55,12 @@
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
                             <li><a href="#"><i class="fa fa-user"></i> Minha conta</a></li>
-                            <li><a href="http://commerce.dev:10088/checkout"><i class="fa fa-crosshairs"></i>
+                            <li><a href="#"><i class="fa fa-crosshairs"></i>
                                     Checkout</a></li>
-                            <li><a href="http://commerce.dev:10088/cart"><i class="fa fa-shopping-cart"></i>
+                            <li><a href="#"><i class="fa fa-shopping-cart"></i>
                                     Carrinho</a></li>
-                            <li><a href="http://commerce.dev:10088/auth/login"><i class="fa fa-lock"></i> Login</a></li>
+                            <li><a href=""><i class="fa fa-lock"></i> Login</a></li>
+                            <li><a href="{{ route('categories') }}"><i class="fa fa-desktop"></i> Restrito</a></li>
                         </ul>
                     </div>
                 </div>
@@ -111,27 +112,26 @@
 </header>
 <!--/header-->
 
-
 <section>
 
     <div class="container">
         <div class="row">
 
-            @yield('categories')
+            @yield('sidebar_left')
 
             @yield('content')
 
         </div>
     </div>
 
-    <div class="common-modal modal fade" id="common-Modal1" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-content">
-            <ul class="list-inline item-details">
-                <li><a href="http://themifycloud.com">ThemifyCloud</a></li>
-                <li><a href="http://themescloud.org">ThemesCloud</a></li>
-            </ul>
-        </div>
-    </div>
+    {{--<div class="common-modal modal fade" id="common-Modal1" tabindex="-1" role="dialog" aria-hidden="true">--}}
+        {{--<div class="modal-content">--}}
+            {{--<ul class="list-inline item-details">--}}
+                {{--<li><a href="http://themifycloud.com">ThemifyCloud</a></li>--}}
+                {{--<li><a href="http://themescloud.org">ThemesCloud</a></li>--}}
+            {{--</ul>--}}
+        {{--</div>--}}
+    {{--</div>--}}
 
 </section>
 
@@ -152,6 +152,8 @@
 <!--/Footer-->
 
 <script src="{{ elixir('js/all.js') }}"></script>
+
+@yield('js_customizado')
 
 </body>
 </html>

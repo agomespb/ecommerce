@@ -8,6 +8,11 @@ class Product extends Model {
 
     protected $fillable = ['category_id', 'name', 'description', 'price', 'featured', 'recommend'];
 
+    public function __construct(){
+        parent::__construct();
+        $this->category_id = 0;
+    }
+
     /**
      * <b>Category</b>
      * Retorna a categoria ao qual o produto pertence.
@@ -37,7 +42,12 @@ class Product extends Model {
      */
     public function scopeFeatured($query)
     {
-        return $query->where('featured','=',1);
+        $featured = $query->where('featured','=',1);
+
+        if( $this->category_id )
+            $featured = $featured->where('category_id', '=', $this->getCategoryId());
+
+        return $featured;
     }
 
     /**
@@ -48,29 +58,12 @@ class Product extends Model {
      */
     public function scopeRecommend($query)
     {
-        return $query->where('recommend','=',1);
-    }
+        $recommend = $query->where('recommend','=',1);
 
-    /**
-     * Retorna os Produtos em Destaque.
-     *
-     * @param $query
-     * @return mixed
-     */
-    public function scopeFeaturedCategory($query)
-    {
-        return $query->where('featured','=',1)->where('category_id', '=', $this->getCategoryId());
-    }
+        if( $this->category_id )
+            $recommend = $recommend->where('category_id', '=', $this->getCategoryId());
 
-    /**
-     * Retorna os Produtos Recomendados.
-     *
-     * @param $query
-     * @return mixed
-     */
-    public function scopeRecommendCategory($query)
-    {
-        return $query->where('recommend','=',1)->where('category_id', '=', $this->getCategoryId());
+        return $recommend;
     }
 
     /**
@@ -88,7 +81,5 @@ class Product extends Model {
     {
         $this->category_id = $category_id;
     }
-
-
 
 }

@@ -42,14 +42,25 @@ class StoreController extends Controller {
      */
     public function indexCategory($id)
     {
-        $category_id = $id;
-        $this->produtos->setCategoryId($category_id);
+        $this->produtos->setCategoryId($id);
 
-        $produtosEmDestaque = $this->produtos->featuredCategory()->get();
-        $produtosRecomendados = $this->produtos->recommendCategory()->get();
+        $produtosEmDestaque = $this->produtos->featured()->get();
+        $produtosRecomendados = $this->produtos->recommend()->get();
         $categorias = $this->categorias->lists('name', 'id');
 
-        return view('store.index', compact('categorias', 'category_id', 'produtosEmDestaque', 'produtosRecomendados'));
+        return view('store.index', compact('categorias', ['category_id'=>$id], 'produtosEmDestaque', 'produtosRecomendados'));
+    }
+
+    /**
+     * Show the application For Category.
+     *
+     * @return Response
+     */
+    public function productShow($id)
+    {
+        $produto = $this->produtos->find($id);
+        $categorias = $this->categorias->lists('name', 'id');
+        return view('store.product_show', compact('categorias', 'produto'));
     }
 
 }

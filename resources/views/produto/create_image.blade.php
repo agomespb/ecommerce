@@ -7,7 +7,7 @@
         <h2>Upload de Imagem</h2>
         <hr>
 
-        <a href="{{ URL::route('products_images', $produto->id) }}" class="btn btn-default">Voltar</a>
+        <a href="{{ URL::route('products_images', $produto->id) }}" class="btn btn-default"><i class="fa fa-chevron-left"></i> Voltar</a>
 
         <hr>
 
