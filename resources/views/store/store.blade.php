@@ -117,9 +117,13 @@
     <div class="container">
         <div class="row">
 
-            @yield('sidebar_left')
+            <div class="col-sm-3">
+                @yield('sidebar_left')
+            </div>
 
-            @yield('content')
+            <div class="col-sm-9 padding-right">
+                @yield('content')
+            </div>
 
         </div>
     </div>

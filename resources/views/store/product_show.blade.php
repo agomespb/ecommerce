@@ -1,19 +1,19 @@
 @extends('store.store')
 
 @section('css_customizado')
-    <link href="{{ url('css/stylle.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/stylle.css') }}" rel="stylesheet">
 @stop
 
 @section('sidebar_left')
-    @include('store.categories_partial')
+    @include('store.partial.categories')
 @stop
 
 @section('content')
-    <div class="col-sm-9 padding-right">
 
-        <h2 class="title text-center">{{ $produto->name }}</h2>
-        <h4 class="text-center">{{ trim($produto->description) }}</h4>
+    <h2 class="title text-center">{{ trim($produto->category->name) . ' / ' . $produto->name }}</h2>
+    <h4 class="text-center">{{ trim($produto->description) }}</h4>
 
+    <div class="col-sm-7">
         <div class="product_images">
 
             <div class="cover">
@@ -32,9 +32,24 @@
                     @endforeach
                 @endif
             </div>
+
         </div>
+    </div>
+
+    <div class="col-sm-4">
+
+        @if(count($produto->tags))
+            @include('store.partial.tags')
+        @endif
+
+        <h2 class="text-center">R$ {{ number_format($produto->price, 2, ',', '.') }}</h2>
+
+        <p class="text-center">
+            <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Adicionar no carrinho</a>
+        </p>
 
     </div>
+
 @stop
 
 @section('js_customizado')

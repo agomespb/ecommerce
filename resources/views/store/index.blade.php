@@ -1,21 +1,27 @@
 @extends('store.store')
 
 @section('sidebar_left')
-    @include('store.categories_partial')
+    @include('store.partial.categories')
 @stop
 
 @section('content')
-    <div class="col-sm-9 padding-right">
-        <div class="features_items"><!--features_items-->
 
-            @include('store.products_featured_partial')
+    <div class="features_items"><!--features_items-->
 
-        </div><!--features_items-->
+        <h2 class="title text-center">
+            {{ (isset($category_id)) ? $categorias[$category_id] : '' }} Em Destaque
+        </h2>
+        @include('store.partial.products', ['produtos'=>$produtosEmDestaque])
 
-        <div class="features_items"><!--recommended-->
+    </div><!--features_items-->
 
-            @include('store.products_recommend_partial')
+    <div class="features_items"><!--recommended-->
 
-        </div><!--recommended-->
-    </div>
+        <h2 class="title text-center">
+            {{ (isset($category_id)) ? $categorias[$category_id] : '' }} Recomendados
+        </h2>
+        @include('store.partial.products', ['produtos'=>$produtosRecomendados])
+
+    </div><!--recommended-->
+
 @stop

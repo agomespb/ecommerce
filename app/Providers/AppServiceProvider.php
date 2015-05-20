@@ -25,6 +25,10 @@ class AppServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+//        $this->app->bind('path.public', function() {
+//            return "/var/www/ProjectsL5/ecommerce/public_html";
+//        });
+
 		$this->app->bind(
 			'Illuminate\Contracts\Auth\Registrar',
 			'AGCommerce\Services\Registrar'

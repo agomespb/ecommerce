@@ -37,8 +37,9 @@ Route::get('/', ['as' => 'home', 'uses' => 'StoreController@index']);
 
 Route::group(['prefix' => 'loja', 'where' => ['id'=>'[0-9]+']], function() {
 
-    Route::get('category/{id}/show', ['as' => 'index_category', 'uses' => 'StoreController@indexCategory']);
+    Route::get('category/{id}/products', ['as' => 'index_category', 'uses' => 'StoreController@indexCategory']);
     Route::get('product/{id}/show', ['as' => 'product_show', 'uses' => 'StoreController@productShow']);
+    Route::get('tag/{id}/products', ['as' => 'tag_products', 'uses' => 'StoreController@tagProducts']);
 
 });
 
