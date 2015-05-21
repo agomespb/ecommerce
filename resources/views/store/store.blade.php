@@ -57,7 +57,7 @@
                             <li><a href="#"><i class="fa fa-user"></i> Minha conta</a></li>
                             <li><a href="#"><i class="fa fa-crosshairs"></i>
                                     Checkout</a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i>
+                            <li><a href="{{ route('cart') }}"><i class="fa fa-shopping-cart"></i>
                                     Carrinho</a></li>
                             <li><a href=""><i class="fa fa-lock"></i> Login</a></li>
                             <li><a href="{{ route('categories') }}"><i class="fa fa-desktop"></i> Restrito</a></li>
@@ -116,6 +116,8 @@
 
     <div class="container">
         <div class="row">
+
+            @yield('cart_content')
 
             <div class="col-sm-3">
                 @yield('sidebar_left')

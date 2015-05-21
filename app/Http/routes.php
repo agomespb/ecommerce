@@ -38,11 +38,24 @@ Route::get('/', ['as' => 'home', 'uses' => 'StoreController@index']);
 Route::group(['prefix' => 'loja', 'where' => ['id'=>'[0-9]+']], function() {
 
     Route::get('category/{id}/products', ['as' => 'index_category', 'uses' => 'StoreController@indexCategory']);
+
     Route::get('product/{id}/show', ['as' => 'product_show', 'uses' => 'StoreController@productShow']);
+
     Route::get('tag/{id}/products', ['as' => 'tag_products', 'uses' => 'StoreController@tagProducts']);
 
 });
 
+Route::group(['prefix' => 'cart', 'where' => ['id'=>'[0-9]+']], function() {
+
+    Route::get('', ['as' => 'cart', 'uses' => 'CartController@index']);
+
+    Route::get('product/{id}/add', ['as' => 'cart_add', 'uses' => 'CartController@add']);
+
+    Route::get('product/{id}/minus', ['as' => 'cart_minus', 'uses' => 'CartController@minus']);
+
+    Route::get('product/destroy/{id}', ['as' => 'cart_destroy', 'uses' => 'CartController@destroy']);
+
+});
 
 /*
 |--------------------------------------------------------------------------

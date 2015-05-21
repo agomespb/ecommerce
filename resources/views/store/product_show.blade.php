@@ -45,7 +45,7 @@
         <h2 class="text-center">R$ {{ number_format($produto->price, 2, ',', '.') }}</h2>
 
         <p class="text-center">
-            <a href="#" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Adicionar no carrinho</a>
+            <a href="{{ route('cart_add',['id'=>$produto->id] ) }}" class="btn btn-primary"><i class="fa fa-shopping-cart"></i> Adicionar no carrinho</a>
         </p>
 
     </div>
