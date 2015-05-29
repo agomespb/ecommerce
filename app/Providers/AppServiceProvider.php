@@ -29,6 +29,8 @@ class AppServiceProvider extends ServiceProvider {
 //            return "/var/www/ProjectsL5/ecommerce/public_html";
 //        });
 
+//        dd(public_path());
+
 		$this->app->bind(
 			'Illuminate\Contracts\Auth\Registrar',
 			'AGCommerce\Services\Registrar'

@@ -11,5 +11,9 @@ class ProductImage extends Model {
         return $this->belongsTo('AGCommerce\Product');
     }
 
+    public function getImageFileNameAttribute()
+    {
+        return $this->id . '.' . $this->extension;
+    }
 
 }

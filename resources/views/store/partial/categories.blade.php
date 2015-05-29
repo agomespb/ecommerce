@@ -1,7 +1,7 @@
 <div class="left-sidebar">
     <h2>Categorias</h2>
 
-    <div class="panel-group category-products" id="accordian"><!--category-productsr-->
+    <div class="panel-group category-products" id="accordian">
 
         @foreach($categorias as $id => $categoria)
             <div class="panel panel-default">
@@ -13,6 +13,5 @@
         @endforeach
 
     </div>
-    <!--/category-products-->
 
 </div>

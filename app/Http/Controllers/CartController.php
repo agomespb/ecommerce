@@ -31,7 +31,7 @@ class CartController extends Controller
     {
         $cart = $this->getCart();
         $produto = Product::find($id);
-        $image = $produto->images->first()->id .'.'. $produto->images->first()->extension;
+        $image = $produto->images->first()->imageFileName;
 
         $cart->add($id, $produto->name, $produto->price, $image);
 

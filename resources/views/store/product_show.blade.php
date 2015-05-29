@@ -1,9 +1,5 @@
 @extends('store.store')
 
-@section('css_customizado')
-    <link href="{{ asset('css/stylle.css') }}" rel="stylesheet">
-@stop
-
 @section('sidebar_left')
     @include('store.partial.categories')
 @stop
@@ -18,7 +14,7 @@
 
             <div class="cover">
                 @if( count($produto->images) )
-                    <img src="{{ url('uploads/'.$produto->images->first()->id .'.'. $produto->images->first()->extension) }}"
+                    <img src="{{ url('uploads/'.$produto->images->first()->imageFileName) }}"
                          alt="" height=""/>
                 @else
                     <img src="{{ url('images/no-img.jpg') }}" alt="" height="250"/>
@@ -28,7 +24,7 @@
             <div class="thumbs">
                 @if( count($produto->images) )
                     @foreach($produto->images as $image)
-                        <img src="{{ url('uploads/'.$image->id .'.'. $image->extension) }}" alt="" height="15%"/>
+                        <img src="{{ url('uploads/'.$image->imageFileName) }}" alt="" height="15%"/>
                     @endforeach
                 @endif
             </div>
@@ -52,24 +48,34 @@
 
 @stop
 
-@section('js_customizado')
+@section('styles')
+    @parent
+    <link href="{{ asset('css/stylle.css') }}" rel="stylesheet">
+@stop
+
+@section('scripts')
+    @parent
     <script>
-        $(function () {
-            $('.thumbs img').click(function () {
-
-                var cover = $('.cover img');
-                var thumb = $(this).attr('src');
-
-                if (cover.attr('src') !== thumb) {
-                    cover.fadeTo('200', '0', function () {
-                        cover.attr('src', thumb);
-                        cover.fadeTo('150', '1');
+        ;(function($)
+        {
+            'use strict';
+            $(document).ready(function()
+            {
+                $(function () {
+                    $('.thumbs img').click(function () {
+                        var cover = $('.cover img');
+                        var thumb = $(this).attr('src');
+                        if (cover.attr('src') !== thumb) {
+                            cover.fadeTo('200', '0', function () {
+                                cover.attr('src', thumb);
+                                cover.fadeTo('150', '1');
+                            });
+                        }
+                        $('.thumbs img').removeClass('active');
+                        $(this).addClass('active');
                     });
-                }
-
-                $('.thumbs img').removeClass('active');
-                $(this).addClass('active');
+                });
             });
-        });
+        })(window.jQuery);
     </script>
 @stop

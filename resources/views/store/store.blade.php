@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
 
     <meta charset="utf-8">
@@ -8,9 +8,13 @@
     <meta name="author" content="">
     <title>Home | eAGC</title>
 
-    <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
     <link rel="shortcut icon" href="{{ url('loja_favicon.jpg') }}">
-    @yield('css_customizado')
+
+    {{--@yield('css_customizado')--}}
+
+    @section('styles')
+        <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
+    @show
 
 </head>
 <!--/head-->
@@ -54,13 +58,36 @@
                 <div class="col-sm-8">
                     <div class="shop-menu pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-user"></i> Minha conta</a></li>
-                            <li><a href="#"><i class="fa fa-crosshairs"></i>
-                                    Checkout</a></li>
-                            <li><a href="{{ route('cart') }}"><i class="fa fa-shopping-cart"></i>
-                                    Carrinho</a></li>
-                            <li><a href=""><i class="fa fa-lock"></i> Login</a></li>
-                            <li><a href="{{ route('categories') }}"><i class="fa fa-desktop"></i> Restrito</a></li>
+
+
+                            <li><a href="{{ route('cart') }}"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
+
+                            @if (Auth::guest())
+                                <li><a href="{{ url('/auth/login') }}"><i class="fa fa-lock"></i> Login</a></li>
+                                <li><a href="{{ url('/auth/register') }}"><i class="fa fa-anchor"></i> Register</a></li>
+                            @else
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                       aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a href="{{ url('/auth/logout') }}"><i class="fa fa-unlock-alt"></i> Logout</a></li>
+                                        <li class=""></li>
+                                        <li><a href="#"><i class="fa fa-user"></i> Minha conta</a></li>
+                                    </ul>
+                                </li>
+
+                            @endif
+
+                            @if (Auth::guest())
+                                <li><a href="{{ route('categories') }}"><i class="fa fa-code"></i> Área Restrito</a></li>
+                            @else
+
+                                @if(Auth::user()->is_admin)
+                                    <li><a href="{{ route('categories') }}"><i class="fa fa-code"></i> Área Restrito</a></li>
+                                @endif
+
+                            @endif
+
                         </ul>
                     </div>
                 </div>
@@ -87,15 +114,24 @@
                             <li><a href="/" class="active">Home</a></li>
                             <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a href="shop.html">Products</a></li>
-                                    <li><a href="product-details.html">Product Details</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="login.html">Login</a></li>
+
+                                    {{--<li><a href="">Products</a></li>--}}
+                                    {{--<li><a href="">Product Details</a></li>--}}
+
+                                    <li><a href="{{ route('checkout_order') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                                    <li><a href="{{ route('cart') }}"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
+
+                                    @if (Auth::guest())
+                                        <li><a href="{{ url('/auth/login') }}"><i class="fa fa-lock"></i> Login</a></li>
+                                        <li><a href="{{ url('/auth/register') }}"><i class="fa fa-anchor"></i> Register</a></li>
+                                    @else
+                                        <li><a href="{{ url('/auth/logout') }}"><i class="fa fa-unlock-alt"></i> Logout</a></li>
+                                    @endif
+
                                 </ul>
                             </li>
 
-                            <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="{{ route('contact') }}">Contato</a></li>
                         </ul>
                     </div>
                 </div>
@@ -157,9 +193,13 @@
 </footer>
 <!--/Footer-->
 
-<script src="{{ elixir('js/all.js') }}"></script>
 
-@yield('js_customizado')
+@section('scripts')
+
+    <script src="{{ elixir('js/all.js') }}"></script>
+
+@show
+
 
 </body>
 </html>

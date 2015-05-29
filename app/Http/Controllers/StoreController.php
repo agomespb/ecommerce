@@ -26,11 +26,21 @@ class StoreController extends Controller {
      */
     public function index()
     {
-        $produtosEmDestaque = $this->produtos->featured()->get();
-        $produtosRecomendados = $this->produtos->recommend()->get();
-        $categorias = $this->categorias->lists('name', 'id');
+        $produtosEmDestaque = $this->produtos->ofFeatured()->get();
+        $produtosRecomendados = $this->produtos->ofRecommend()->get();
+        $categorias = $this->categorias->list_all;
 
         return view('store.index', compact('categorias', 'produtosEmDestaque', 'produtosRecomendados'));
+    }
+
+    /**
+     * Show the contact application.
+     *
+     * @return Response
+     */
+    public function contact()
+    {
+        return view('user.contact');
     }
 
     /**
@@ -40,14 +50,11 @@ class StoreController extends Controller {
      */
     public function indexCategory($id)
     {
-        $category_id = $id;
-        $this->produtos->setCategoryId($id);
+        $produtosEmDestaque = $this->produtos->ofFeatured($id)->get();
+        $produtosRecomendados = $this->produtos->ofRecommend($id)->get();
+        $categorias = $this->categorias->list_all;
 
-        $produtosEmDestaque = $this->produtos->featured()->get();
-        $produtosRecomendados = $this->produtos->recommend()->get();
-        $categorias = $this->categorias->lists('name', 'id');
-
-        return view('store.index', compact('categorias', 'category_id', 'produtosEmDestaque', 'produtosRecomendados'));
+        return view('store.index', compact('categorias', ['category_id' => $id], 'produtosEmDestaque', 'produtosRecomendados'));
     }
 
     /**
@@ -58,7 +65,7 @@ class StoreController extends Controller {
     public function productShow($id)
     {
         $produto = $this->produtos->find($id);
-        $categorias = $this->categorias->lists('name', 'id');
+        $categorias = $this->categorias->list_all;
         return view('store.product_show', compact('categorias', 'produto'));
     }
 
@@ -71,7 +78,7 @@ class StoreController extends Controller {
     {
         $tag = $tags->find($id);
         $produtos = $tag->products;
-        $categorias = $this->categorias->lists('name', 'id');
+        $categorias = $this->categorias->list_all;
 
         return view('store.products_of_tag', compact('categorias', 'produtos', 'tag'));
     }

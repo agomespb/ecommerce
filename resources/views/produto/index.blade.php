@@ -87,35 +87,25 @@
     </div>
 @endsection
 
-@section('libjs')
-
+@section('scripts')
+    @parent
     <script>
-
-        $(function(){
-
-        // variável para conter a url deletar
-        var url_deletar = "/destroy";
-
-        // qualquer link que tiver a url deletar vai sofrer um evento quando for clicada
-        $("a[href*='" + url_deletar + "']").click(function (event) {
-
-            // variável contendo o id referente ao botão clicado
-            var contato_id  = $(this).attr('href').split(url_deletar).pop();
-
-            // variável contendo mensagem da janela
-            var mensagem = "Deseja realmente continuar com a exclusão?";
-
-            // variável com resposta da mensagem colocada na janela
-            var confirmacao = confirm(mensagem);
-
-            // se a confirmação for false o fluxo é interrompido
-            if (!confirmacao)
-                // elimar o evendo do botão clicado
-                event.preventDefault();
+        ;(function($)
+        {
+            'use strict';
+            $(document).ready(function()
+            {
+                $(function(){
+                    var url_deletar = "{{ route('destroy_product', ['id'=>null]) }}" + '/';
+                    $("a[href*='" + url_deletar + "']").click(function (event) {
+                        var produto_id  = $(this).attr('href').split(url_deletar).pop();
+                        var mensagem = "Deseja realmente remover o Produto com ID " + produto_id + " da sua loja?";
+                        var confirmacao = confirm(mensagem);
+                        if (!confirmacao)
+                            event.preventDefault();
+                    });
+                });
             });
-        });
-
+        })(window.jQuery);
     </script>
-
-@endsection
-
+@stop

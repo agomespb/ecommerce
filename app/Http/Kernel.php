@@ -25,6 +25,7 @@ class Kernel extends HttpKernel {
 	 */
 	protected $routeMiddleware = [
 		'auth' => 'AGCommerce\Http\Middleware\Authenticate',
+		'admin_auth' => 'AGCommerce\Http\Middleware\AdminAuthenticate',
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'AGCommerce\Http\Middleware\RedirectIfAuthenticated',
 	];

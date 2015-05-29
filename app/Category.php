@@ -18,4 +18,9 @@ class Category extends Model {
         return $this->hasMany('AGCommerce\Product');
     }
 
+    public function getListAllAttribute()
+    {
+        return $this->lists('name', 'id');
+    }
+
 }

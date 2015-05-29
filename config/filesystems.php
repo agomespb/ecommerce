@@ -50,7 +50,8 @@ return [
 
 		'public_local' => [
 			'driver' => 'local',
-			'root'   => public_path().'/uploads',
+			'root'   => public_path() . '/uploads',
+			'root'   => '/home/u915112622/public_html/uploads', //para o site!
 		],
 
 		's3' => [
@@ -72,5 +73,7 @@ return [
 		],
 
 	],
+
+
 
 ];

@@ -53,35 +53,25 @@
 
 @endsection
 
-@section('libjs')
-
+@section('scripts')
+    @parent
     <script>
-
-        $(function(){
-
-        // variável para conter a url deletar
-        var url_deletar = '{{ route('destroy_user', null) }}' + '/';
-
-        // qualquer link que tiver a url deletar vai sofrer um evento quando for clicada
-        $("a[href*='" + url_deletar + "']").click(function (event) {
-
-            // variável contendo o id referente ao botão clicado
-            var usuario_id  = $(this).attr('href').split(url_deletar).pop();
-
-            // variável contendo mensagem da janela
-            var mensagem = "Deseja realmente continuar com a exclusão do Usuário de ID: " + usuario_id + " ?";
-
-            // variável com resposta da mensagem colocada na janela
-            var confirmacao = confirm(mensagem);
-
-            // se a confirmação for false o fluxo é interrompido
-            if (!confirmacao)
-                // elimar o evendo do botão clicado
-                event.preventDefault();
+        ;(function($)
+        {
+            'use strict';
+            $(document).ready(function()
+            {
+                $(function(){
+                    var url_deletar = "{{ route('destroy_user', ['id'=>null]) }}" + '/';
+                    $("a[href*='" + url_deletar + "']").click(function (event) {
+                        var user_id  = $(this).attr('href').split(url_deletar).pop();
+                        var mensagem = "Deseja realmente remover o Usuário com ID " + user_id + " da sua loja?";
+                        var confirmacao = confirm(mensagem);
+                        if (!confirmacao)
+                            event.preventDefault();
+                    });
+                });
             });
-        });
-
+        })(window.jQuery);
     </script>
-
-@endsection
-
+@stop

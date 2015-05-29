@@ -6,7 +6,7 @@
                 <div class="productinfo text-center">
 
                     @if( count($produto->images) )
-                        <img src="{{ url('uploads/'.$produto->images->first()->id .'.'. $produto->images->first()->extension) }}" alt="" height="250"/>
+                        <img src="{{ url('uploads/'.$produto->images->first()->imageFileName) }}" alt="" height="250"/>
                     @else
                         <img src="{{ url('images/no-img.jpg') }}" alt="" height="250"/>
                     @endif

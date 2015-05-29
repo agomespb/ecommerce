@@ -40,7 +40,7 @@
                 <tr>
                     <td width="10%">{{ $imagem->id }}</td>
                     <td width="30%">
-                        <img src="{{ url('uploads/'.$imagem->id.'.'.$imagem->extension) }}" width="40%" class="img-rounded">
+                        <img src="{{ url('uploads/'.$imagem->imageFileName) }}" width="40%" class="img-rounded">
                     </td>
                     <td width="10%">
                         <small>{{ $imagem->extension }}</small>
@@ -61,35 +61,25 @@
 </div>
 @endsection
 
-@section('libjs')
-
-<script>
-
-$(function(){
-
-    // variável para conter a url deletar
-    var url_deletar = "{{ route('products_images_destroy', null ) }}" + '/';
-
-    // qualquer link que tiver a url deletar vai sofrer um evento quando for clicada
-    $("a[href*='" + url_deletar + "']").click(function (event) {
-
-    // variável contendo o id referente ao botão clicado
-    var contato_id  = $(this).attr('href').split(url_deletar).pop();
-
-    // variável contendo mensagem da janela
-    var mensagem = "Deseja realmente continuar com a exclusão?";
-
-    // variável com resposta da mensagem colocada na janela
-    var confirmacao = confirm(mensagem);
-
-    // se a confirmação for false o fluxo é interrompido
-    if (!confirmacao)
-    // elimar o evendo do botão clicado
-    event.preventDefault();
-    });
-});
-
-</script>
-
-@endsection
-
+@section('scripts')
+    @parent
+    <script>
+        ;(function($)
+        {
+            'use strict';
+            $(document).ready(function()
+            {
+                $(function(){
+                    var url_deletar = "{{ route('products_images_destroy', ['id'=>null]) }}" + '/';
+                    $("a[href*='" + url_deletar + "']").click(function (event) {
+                        var contato_id  = $(this).attr('href').split(url_deletar).pop();
+                        var mensagem = "Deseja realmente remover a imagem com ID " + contato_id + " do produto?";
+                        var confirmacao = confirm(mensagem);
+                        if (!confirmacao)
+                            event.preventDefault();
+                    });
+                });
+            });
+        })(window.jQuery);
+    </script>
+@stop

@@ -12,10 +12,9 @@
 */
 
 
-Route::get('home', 'HomeController@index');
-
 Route::controllers([
     'auth' => 'Auth\AuthController',
+    'authadmin' => 'Auth\AdminAuthController',
     'password' => 'Auth\PasswordController',
 ]);
 
@@ -33,9 +32,14 @@ Route::controllers([
 |--------------------------------------------------------------------------
 */
 
-Route::get('/', ['as' => 'home', 'uses' => 'StoreController@index']);
 
-Route::group(['prefix' => 'loja', 'where' => ['id'=>'[0-9]+']], function() {
+Route::group(['prefix' => '/', 'where' => ['id'=>'[0-9]+']], function() {
+
+    Route::get('', ['as' => 'index', 'uses' => 'StoreController@index']);
+
+    Route::get('home', ['as' => 'home', 'uses' => 'StoreController@index']);
+
+    Route::get('contact', ['as' => 'contact', 'uses' => 'StoreController@contact']);
 
     Route::get('category/{id}/products', ['as' => 'index_category', 'uses' => 'StoreController@indexCategory']);
 
@@ -57,13 +61,21 @@ Route::group(['prefix' => 'cart', 'where' => ['id'=>'[0-9]+']], function() {
 
 });
 
+Route::group(['prefix' => 'checkout', 'where' => ['id'=>'[0-9]+']], function() {
+
+    Route::get('', ['as' => 'checkout_place', 'uses' => 'CheckoutController@place']);
+
+    Route::get('order', ['as' => 'checkout_order', 'uses' => 'CheckoutController@order']);
+
+});
+
 /*
 |--------------------------------------------------------------------------
 | ROTAS ADMINISTRATIVAS (Categorias / Produtos)
 |--------------------------------------------------------------------------
 */
 
-Route::group(['prefix' => 'admin', 'where' => ['id'=>'[0-9]+']], function(){
+Route::group(['prefix' => 'admin', 'middleware'=>'admin_auth', 'where' => ['id'=>'[0-9]+']], function(){
 
     /*
     |--------------------------------------------------------------------------
@@ -103,9 +115,9 @@ Route::group(['prefix' => 'admin', 'where' => ['id'=>'[0-9]+']], function(){
 
         Route::get('create', ['as' => 'new_product', 'uses' => 'AdminProductsController@create']);
 
-        Route::get('{id?}/show', ['as' => 'show_product', 'uses' => 'AdminProductsController@show']);
+        Route::get('{id}/show', ['as' => 'show_product', 'uses' => 'AdminProductsController@show']);
 
-        Route::get('{id}/destroy', ['as' => 'destroy_product', 'uses' => 'AdminProductsController@destroy']);
+        Route::get('destroy/{id}', ['as' => 'destroy_product', 'uses' => 'AdminProductsController@destroy']);
 
         Route::get('{id}/edit', ['as' => 'edit_product', 'uses' => 'AdminProductsController@edit']);
 

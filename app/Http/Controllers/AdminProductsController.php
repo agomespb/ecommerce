@@ -2,21 +2,23 @@
 
 use AGCommerce\Category;
 use AGCommerce\Http\Requests\ProductImageRequest;
-use AGCommerce\Product;
 use AGCommerce\Http\Requests\produto\ProductRequest;
+use AGCommerce\Product;
 use AGCommerce\ProductImage;
-use AGCommerce\Tag;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 
-class AdminProductsController extends Controller {
+class AdminProductsController extends Controller
+{
 
     private $produtos;
-    private $tags;
+    private $page;
 
-    public function __construct(Product $produtos, Tag $tags){
+    public function __construct(Product $produtos)
+    {
         $this->produtos = $produtos;
-        $this->tags = $tags;
+        $this->page = (isset($_GET['page'])) ? $_GET['page'] : 1;
+
     }
 
     /**
@@ -26,7 +28,8 @@ class AdminProductsController extends Controller {
      */
     public function index()
     {
-        $produtos = $this->produtos->paginate(8);
+
+        $produtos = $this->produtos->paginate(6);
         return view('produto.index', compact('produtos'));
     }
 
@@ -37,7 +40,7 @@ class AdminProductsController extends Controller {
      */
     public function create(Category $categoria)
     {
-        $categorias = $categoria->lists('name', 'id');
+        $categorias = $categoria->list_all;
         return view('produto.create', compact('categorias'));
     }
 
@@ -67,9 +70,8 @@ class AdminProductsController extends Controller {
         $produto = $this->produtos->fill($Input);
         $produto->save();
 
-        if( count($createTags) )
-        {
-            $syncTag = $this->tagsForSync($createTags);
+        if (count($createTags)) {
+            $syncTag = $produto->tags()->ofCheckTags($createTags);
             $produto->tags()->sync($syncTag);
         }
 
@@ -85,12 +87,11 @@ class AdminProductsController extends Controller {
     {
         $produto = $this->produtos->find($id);
 
-        if( count($produto->images) ):
+        if (count($produto->images)):
 
-            foreach($produto->images as $image){
+            foreach ($produto->images as $image) {
 
-                $fileName = $image->id . '.' . $image->extension;
-                $this->deleteImage($fileName);
+                $this->deleteImage($image->imageFileName);
                 $image->delete();
             }
 
@@ -110,15 +111,16 @@ class AdminProductsController extends Controller {
     {
         $textareaTag = '';
 
+        $page = $this->page;
         $produto = $this->produtos->find($id);
 
-        if(count($produto->tags)){
+        if (count($produto->tags)) {
             $tags = $produto->tags->lists('name');
             $textareaTag = implode(', ', $tags);
         }
 
-        $categorias = $categoria->lists('name', 'id');
-        return view('produto.edit', compact('produto', 'categorias', 'textareaTag'));
+        $categorias = $categoria->list_all;
+        return view('produto.edit', compact('produto', 'categorias', 'textareaTag', 'page'));
     }
 
     /**
@@ -129,11 +131,11 @@ class AdminProductsController extends Controller {
     public function update(ProductRequest $request, $id)
     {
         $updateProduto = $request->all();
-        $updateTags = array_map('trim', explode(',',$updateProduto['tags']));
+        $updateTags = array_map('trim', explode(',', $updateProduto['tags']));
 
         unset($updateProduto['tags']);
 
-        $syncTag = $this->tagsForSync($updateTags);
+        $syncTag = $this->produtos->tags()->ofCheckTags($updateTags);
 
         $this->produtos->find($id)->update($updateProduto);
         $this->produtos->find($id)->tags()->sync($syncTag);
@@ -149,19 +151,19 @@ class AdminProductsController extends Controller {
 
     public function createImage($id)
     {
+
         $produto = $this->produtos->find($id);
         return view('produto.create_image', compact('produto'));
     }
 
     public function storeImage($id, ProductImage $productImage, ProductImageRequest $request)
     {
-
         $file = $request->file('image');
         $extension = $file->getClientOriginalExtension();
 
-        $image = $productImage::create(['product_id'=>$id, 'extension'=>$extension]);
+        $image = $productImage::create(['product_id' => $id, 'extension' => $extension]);
 
-        Storage::disk('public_local')->put($image->id.'.'.$extension, File::get($file));
+        Storage::disk('public_local')->put($image->id . '.' . $extension, File::get($file));
 
         return redirect()->route('products_images', $id);
     }
@@ -169,57 +171,22 @@ class AdminProductsController extends Controller {
     public function destroyImage($id, ProductImage $productImage)
     {
         $image = $productImage->find($id);
-        $fileName = $image->id . '.' . $image->extension;
-
-        $this->deleteImage($fileName);
+        $this->deleteImage($image->imageFileName);
 
         $produto = $image->product;
         $image->delete();
 
-        return redirect()->route('products_images', ['id'=>$produto->id]);
+        return redirect()->route('products_images', ['id' => $produto->id]);
     }
 
     private function deleteImage($fileName)
     {
         $pathFile = public_path() . '/uploads/' . $fileName;
-        if(file_exists($pathFile)) {
+        if (file_exists($pathFile)) {
             Storage::disk('public_local')->delete($fileName);
             return true;
         }
         return false;
-    }
-
-    /**
-     * <b>tagsForSync</b>
-     * Retorna ids das tags
-     *
-     * @param array $tags
-     * @return array
-     */
-    private function tagsForSync($tags)
-    {
-        $syncTag = [];
-
-        foreach($tags as $tag){
-
-            $findTag = $this->tags->where('name', '=', $tag)->get();
-
-            if( count($findTag) ){
-
-                foreach($findTag as $_tag){
-                    $syncTag[] = $_tag->id;
-                }
-
-            } else {
-
-                $newTag = $this->tags->create(['name'=>$tag]);
-                $syncTag[] = $newTag->id;
-
-            }
-
-        }
-
-        return $syncTag;
     }
 
 }

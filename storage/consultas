@@ -1,7 +1,11 @@
-select * from tags
+select * from orders
 
 delete from tags  where id > 15
 
-delete from product_tag where 1 = 1
+delete from orders where total = 0
 
 select * from product_tag
+
+UPDATE users
+SET is_admin=1
+WHERE id=1;

@@ -2,7 +2,7 @@
 @extends('app')
 
 @section('content')
-    <div class="container">
+    <div class="container" id="vue">
 
         <h2>Categorias</h2><hr>
 
@@ -44,37 +44,45 @@
 
         {!! $categorias->render() !!}
 
+        {{--//: "Nordeste"cep: "59042-640"complemento: ""ibge: "2408102": "Natal"logradouro: "Rua Batuque": "RN"--}}
+<p>
+        <input class="form-contro" type="text" name="cep" id="cep" v-model="cep" v-on="keyup:buscar"/>
+    <p class="text-danger" style="display: none;" v-show="naoLocalizado"><strong>Endereço não localizado.</strong> Favor forneça manualmente.</p>
+        <input class="form-contro" type="text" name="logradouro" id="logradouro" v-el="logradouro" v-model="endereco.logradouro" /><br/><br/>
+        <input class="form-contro" type="text" name="bairro" id="bairro" v-model="endereco.bairro" /><br/><br/>
+        <input class="form-contro" type="text" name="localidade" id="localidade" v-model="endereco.localidade" /><br/><br/>
+        <input class="form-contro" type="text" name="uf" id="uf" v-model="endereco.uf" />
+</p>
+
+        <br/><br/><br/><br/>
+
     </div>
 @endsection
 
-@section('libjs')
+@section('scripts')
+    @parent
+
+    <script src="{{ asset('js/vue.js') }}"></script>
+    <script src="{{ asset('js/appvuejs.js') }}"></script>
 
     <script>
-
-        $(function(){
-
-            // variável para conter a url deletar
-            var url_deletar = '{{ route('destroy_category', null) }}' + '/';
-
-            // qualquer link que tiver a url deletar vai sofrer um evento quando for clicada
-            $("a[href*='" + url_deletar + "']").click(function (event) {
-
-                // variável contendo o id referente ao botão clicado
-                var usuario_id  = $(this).attr('href').split(url_deletar).pop();
-
-                // variável contendo mensagem da janela
-                var mensagem = "Deseja realmente continuar com a exclusão da Categoria de ID: " + usuario_id + " ?";
-
-                // variável com resposta da mensagem colocada na janela
-                var confirmacao = confirm(mensagem);
-
-                // se a confirmação for false o fluxo é interrompido
-                if (!confirmacao)
-                // elimar o evendo do botão clicado
-                    event.preventDefault();
+        ;(function($)
+        {
+            'use strict';
+            $(document).ready(function()
+            {
+                $(function(){
+                    var url_deletar = "{{ route('destroy_category', ['id'=>null]) }}" + '/';
+                    $("a[href*='" + url_deletar + "']").click(function (event) {
+                        var categoria_id  = $(this).attr('href').split(url_deletar).pop();
+                        var mensagem = "Deseja realmente remover a Categoria com ID " + categoria_id + " da sua loja?";
+                        var confirmacao = confirm(mensagem);
+                        if (!confirmacao)
+                            event.preventDefault();
+                    });
+                });
             });
-        });
-
+        })(window.jQuery);
     </script>
 
-@endsection
+@stop

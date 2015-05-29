@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ADM | eAGC</title>
 
-    <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
     <link rel="shortcut icon" href="{{ url('adm-favicon.ico') }}">
+
+    @section('styles')
+            <link href="{{ elixir('css/all.css') }}" rel="stylesheet">
+    @show
+
     <!-- Fonts -->
     {{--<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>--}}
 
@@ -60,14 +64,8 @@
                         <ul class="nav navbar-nav">
 
                             <li><a href="{{ url('/') }}"><i class="fa fa-home"></i> Home</a></li>
-                            <li><a href="{{ route('categories') }}"><i class="fa fa-folder"></i> Categorias</a></li>
-                            <li><a href="{{ route('products') }}"><i class="fa fa-coffee"></i>Produtos</a></li>
-                            <li><a href="{{ route('users') }}"><i class="fa fa-users"></i> Usuários</a></li>
 
-                            @if (Auth::guest())
-                                <li><a href="{{ url('/auth/login') }}"><i class="fa fa-lock"></i> Login</a></li>
-                                <li><a href="{{ url('/auth/register') }}"><i class="fa fa-anchor"></i> Register</a></li>
-                            @else
+                            @if ( !Auth::guest() )
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                        aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
@@ -102,19 +100,29 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
+
                             <li><a href="/" class="active">Home</a></li>
-                            <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
+
+                            @if ( !Auth::guest() )
+                            <li class="dropdown"><a href="#">ADM-Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
 
-                                    <li><a href="shop.html">Products</a></li>
-                                    <li><a href="product-details.html">Product Details</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="login.html">Login</a></li>
+
+                                    <li><a href="{{ route('categories') }}"><i class="fa fa-folder"></i> Categorias</a></li>
+                                    <li><a href="{{ route('products') }}"><i class="fa fa-coffee"></i> Produtos</a></li>
+                                    <li><a href="{{ route('users') }}"><i class="fa fa-users"></i> Usuários</a></li>
+
+
+                                    {{--<li><a href="shop.html">Products</a></li>--}}
+                                    {{--<li><a href="product-details.html">Product Details</a></li>--}}
+                                    {{--<li><a href="checkout.html">Checkout</a></li>--}}
+                                    {{--<li><a href="cart.html">Cart</a></li>--}}
+                                    {{--<li><a href="login.html">Login</a></li>--}}
                                 </ul>
                             </li>
+                            @endif
 
-                            <li><a href="contact-us.html">Contact</a></li>
+                            <li><a href="{{ route('contact') }}">Contact</a></li>
                         </ul>
                     </div>
                 </div>
@@ -151,10 +159,10 @@
 
 </footer>
 <!--/Footer-->
-<!-- Scripts -->
-<script src="{{ elixir('js/all.js') }}"></script>
 
-@yield('libjs')
+@section('scripts')
+    <script src="{{ elixir('js/all.js') }}"></script>
+@show
 
 </body>
 </html>

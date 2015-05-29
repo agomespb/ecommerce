@@ -4,14 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model {
 
-    protected $category_id;
-
     protected $fillable = ['category_id', 'name', 'description', 'price', 'featured', 'recommend'];
-
-    public function __construct(){
-        parent::__construct();
-        $this->category_id = 0;
-    }
 
     /**
      * <b>Category</b>
@@ -40,12 +33,12 @@ class Product extends Model {
      * @param $query
      * @return mixed
      */
-    public function scopeFeatured($query)
+    public function scopeOfFeatured($query, $category_id = null)
     {
         $featured = $query->where('featured','=',1);
 
-        if( $this->category_id )
-            $featured = $featured->where('category_id', '=', $this->getCategoryId());
+        if( $category_id )
+            $featured = $featured->where('category_id', '=', $category_id);
 
         return $featured;
     }
@@ -56,30 +49,15 @@ class Product extends Model {
      * @param $query
      * @return mixed
      */
-    public function scopeRecommend($query)
+    public function scopeOfRecommend($query, $category_id = null)
     {
         $recommend = $query->where('recommend','=',1);
 
-        if( $this->category_id )
-            $recommend = $recommend->where('category_id', '=', $this->getCategoryId());
+        if( $category_id )
+            $recommend = $recommend->where('category_id', '=', $category_id);
 
         return $recommend;
     }
 
-    /**
-     * @return mixed
-     */
-    public function getCategoryId()
-    {
-        return $this->category_id;
-    }
-
-    /**
-     * @param mixed $category_id
-     */
-    public function setCategoryId($category_id)
-    {
-        $this->category_id = $category_id;
-    }
 
 }

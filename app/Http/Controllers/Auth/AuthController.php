@@ -1,6 +1,7 @@
 <?php namespace AGCommerce\Http\Controllers\Auth;
 
 use AGCommerce\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Contracts\Auth\Registrar;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
