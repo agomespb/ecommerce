@@ -6,26 +6,25 @@
 
         <div class="container">
 
-            <h1>Checkout</h1>
+            <h1>Pedido Gerado com Sucesso!</h1>
+            <h3>Em {{ date('d/m/Y \à\s H:i', strtotime($orders->last()->created_at)) }}</h3>
 
             <hr>
 
             <div class="panel-group" id="accordion">
-                @foreach($orders as $order)
-                    <div class="panel panel-default">
+                    <div class="panel panel-primary">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordion" href="#order{{ $order->id }}">
-                                    <strong>Códico:</strong> {{ $order->id }}
-                                    <strong>Data:</strong> {{ date('d/m/Y \a\s H:i', strtotime($order->created_at)) }}
+                                <a data-toggle="collapse" data-parent="#accordion" href="#order{{ $orders->last()->id }}">
+                                    <strong>Código do Pedido:</strong> {{ $orders->last()->id }}
                                 </a>
                             </h4>
                         </div>
-                        <div id="order{{ $order->id }}" class="panel-collapse collapse">
+                        <div id="order{{ $orders->last()->id }}" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <h3><strong>Total: </strong> R$ {{ number_format($order->total, 2, ',', '.') }}</h3>
+                                <h3><strong>Total: </strong> R$ {{ number_format($orders->last()->total, 2, ',', '.') }}</h3>
 
-                                <p><strong>Situção: {{ ($order->status)? 'Entregue' : 'Em processamento' }}</strong></p>
+                                <p><strong>Situção: {{ ($orders->last()->status)? 'Finalizado' : 'Em processo' }}</strong></p>
 
                                 <div class="table-responsive cart_info">
                                     <table class="table table-condensed">
@@ -43,15 +42,16 @@
 
                                         <tbody>
 
-                                        @forelse($order->items as $item)
+                                        @forelse($orders->last()->items as $item)
                                             <tr>
                                                 <td class="car_product">
-                                                    <img src="{{ url('uploads/' . $produto->find($item->product_id)->images->first()->imageFileName ) }}" alt="" height="100"/>
+                                                    <img src="{{ url('uploads/' . $item->product->images->first()->imageFileName ) }}" alt="" height="100"/>
                                                 </td>
+
 
                                                 <td class="cart_description">
                                                     <h4>
-                                                    {{ $produto->find($item->product_id)->name }}
+                                                    {{ $item->product->name }}
                                                     </h4>
 
                                                     <p>Código: {{ $item->product_id }}</p>
@@ -75,14 +75,14 @@
                                         @empty
                                             <tr>
                                                 <td class="" colspan="5">
-                                                    <p class="text-info">Ainda não há item em seu Carrinho!</p>
+                                                    <p class="text-info">Vazio.</p>
                                                 </td>
                                             </tr>
                                         @endforelse
                                         <tr class="cart_menu">
                                             <td class="" colspan="5">
                                                 <div class="pull-right">
-                                                    <span style="margin-right: 90px">TOTAL: R$ {{ number_format($order->total, 2, ',', '.') }}</span>
+                                                    <span style="margin-right: 90px">TOTAL: R$ {{ number_format($orders->last()->total, 2, ',', '.') }}</span>
                                                 </div>
                                             </td>
                                         </tr>
@@ -93,7 +93,6 @@
                             </div>
                         </div>
                     </div>
-                @endforeach
             </div>
 
             <div class="row"><hr><p><br/></p></div>

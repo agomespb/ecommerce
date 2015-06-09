@@ -2,7 +2,7 @@
 @extends('app')
 
 @section('content')
-    <div class="container" id="vue">
+    <div class="container">
 
         <h2>Categorias</h2><hr>
 
@@ -44,16 +44,6 @@
 
         {!! $categorias->render() !!}
 
-        {{--//: "Nordeste"cep: "59042-640"complemento: ""ibge: "2408102": "Natal"logradouro: "Rua Batuque": "RN"--}}
-<p>
-        <input class="form-contro" type="text" name="cep" id="cep" v-model="cep" v-on="keyup:buscar"/>
-    <p class="text-danger" style="display: none;" v-show="naoLocalizado"><strong>Endereço não localizado.</strong> Favor forneça manualmente.</p>
-        <input class="form-contro" type="text" name="logradouro" id="logradouro" v-el="logradouro" v-model="endereco.logradouro" /><br/><br/>
-        <input class="form-contro" type="text" name="bairro" id="bairro" v-model="endereco.bairro" /><br/><br/>
-        <input class="form-contro" type="text" name="localidade" id="localidade" v-model="endereco.localidade" /><br/><br/>
-        <input class="form-contro" type="text" name="uf" id="uf" v-model="endereco.uf" />
-</p>
-
         <br/><br/><br/><br/>
 
     </div>
@@ -61,9 +51,6 @@
 
 @section('scripts')
     @parent
-
-    <script src="{{ asset('js/vue.js') }}"></script>
-    <script src="{{ asset('js/appvuejs.js') }}"></script>
 
     <script>
         ;(function($)

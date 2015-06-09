@@ -26,4 +26,12 @@ class OrderItem extends Model {
         return $this->belongsTo('AGCommerce\Order');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function product()
+    {
+        return $this->belongsTo('AGCommerce\Product');
+    }
+
 }

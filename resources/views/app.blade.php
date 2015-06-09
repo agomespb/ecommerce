@@ -111,6 +111,7 @@
                                     <li><a href="{{ route('categories') }}"><i class="fa fa-folder"></i> Categorias</a></li>
                                     <li><a href="{{ route('products') }}"><i class="fa fa-coffee"></i> Produtos</a></li>
                                     <li><a href="{{ route('users') }}"><i class="fa fa-users"></i> Usuários</a></li>
+                                    <li><a href="{{ route('orders') }}"><i class="fa fa-bolt"></i> Pedidos</a></li>
 
 
                                     {{--<li><a href="shop.html">Products</a></li>--}}

@@ -19,8 +19,6 @@ new Vue({
 
             if(/^[0-9]{5}-[0-9]{3}/.test(this.cep)){
 
-                //window.console.log(this.cep);
-
                 var self = this; //preservando o scopo (endereço)
 
                 self.endereco = {};
@@ -35,10 +33,7 @@ new Vue({
                     }
 
                     self.endereco = endereco;
-                    //jQuery(self.$$.nomedoinput).focus(); // seta o foco no campo!
-                    //window.console.log(endereco);
-                    //bairro: "Nordeste"cep: "59042-640"complemento: ""ibge: "2408102"localidade: "Natal"logradouro: "Rua Batuque"uf: "RN"
-
+                    jQuery(self.$$.numero).focus();
                 });
             }
         }

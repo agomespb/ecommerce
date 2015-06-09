@@ -50,7 +50,6 @@ class AdminAuthenticate {
             {
                 $this->auth->logout();
                 return redirect()->guest('home');
-//                return redirect()->route('home');
             }
         }
 

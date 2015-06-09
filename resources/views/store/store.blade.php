@@ -28,7 +28,7 @@
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            <li><a href="#"><i class="fa fa-phone"></i> (19) 5555-5555</a></li>
+                            <li><a href="#"><i class="fa fa-phone"></i> (84) 5555-5555</a></li>
                             <li><a href="#"><i class="fa fa-envelope"></i> atendimento@schoolofnet.com</a></li>
                         </ul>
                     </div>
@@ -66,13 +66,14 @@
                                 <li><a href="{{ url('/auth/login') }}"><i class="fa fa-lock"></i> Login</a></li>
                                 <li><a href="{{ url('/auth/register') }}"><i class="fa fa-anchor"></i> Register</a></li>
                             @else
+                                <li><a href="{{ route('checkout') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                       aria-expanded="false">{{ Auth::user()->name }} <span class="caret"></span></a>
+                                       aria-expanded="false">{{ substr(Auth::user()->name, 0, strpos(Auth::user()->name, " ")) }} <span class="caret"></span></a>
                                     <ul class="dropdown-menu" role="menu">
                                         <li><a href="{{ url('/auth/logout') }}"><i class="fa fa-unlock-alt"></i> Logout</a></li>
                                         <li class=""></li>
-                                        <li><a href="#"><i class="fa fa-user"></i> Minha conta</a></li>
+                                        <li><a href="{{ route('user_index') }}"><i class="fa fa-user"></i> Minha conta</a></li>
                                     </ul>
                                 </li>
 
@@ -81,11 +82,9 @@
                             @if (Auth::guest())
                                 <li><a href="{{ route('categories') }}"><i class="fa fa-code"></i> Área Restrito</a></li>
                             @else
-
                                 @if(Auth::user()->is_admin)
                                     <li><a href="{{ route('categories') }}"><i class="fa fa-code"></i> Área Restrito</a></li>
                                 @endif
-
                             @endif
 
                         </ul>
@@ -118,13 +117,13 @@
                                     {{--<li><a href="">Products</a></li>--}}
                                     {{--<li><a href="">Product Details</a></li>--}}
 
-                                    <li><a href="{{ route('checkout_order') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                     <li><a href="{{ route('cart') }}"><i class="fa fa-shopping-cart"></i> Carrinho</a></li>
 
-                                    @if (Auth::guest())
+                                @if (Auth::guest())
                                         <li><a href="{{ url('/auth/login') }}"><i class="fa fa-lock"></i> Login</a></li>
                                         <li><a href="{{ url('/auth/register') }}"><i class="fa fa-anchor"></i> Register</a></li>
                                     @else
+                                        <li><a href="{{ route('checkout') }}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                                         <li><a href="{{ url('/auth/logout') }}"><i class="fa fa-unlock-alt"></i> Logout</a></li>
                                     @endif
 
@@ -195,9 +194,7 @@
 
 
 @section('scripts')
-
     <script src="{{ elixir('js/all.js') }}"></script>
-
 @show
 
 

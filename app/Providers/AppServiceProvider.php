@@ -35,6 +35,7 @@ class AppServiceProvider extends ServiceProvider {
 			'Illuminate\Contracts\Auth\Registrar',
 			'AGCommerce\Services\Registrar'
 		);
+
 	}
 
 }

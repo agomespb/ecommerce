@@ -28,6 +28,7 @@ class Kernel extends HttpKernel {
 		'admin_auth' => 'AGCommerce\Http\Middleware\AdminAuthenticate',
 		'auth.basic' => 'Illuminate\Auth\Middleware\AuthenticateWithBasicAuth',
 		'guest' => 'AGCommerce\Http\Middleware\RedirectIfAuthenticated',
+		'notaddress' => 'AGCommerce\Http\Middleware\NotAddress',
 	];
 
 }

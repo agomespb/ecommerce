@@ -39,4 +39,12 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         return $this->hasMany('AGCommerce\Order');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function enderecos()
+    {
+        return $this->hasMany('AGCommerce\UserEndereco');
+    }
+
 }

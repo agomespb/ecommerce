@@ -1,22 +1,19 @@
 <?php namespace AGCommerce\Http\Controllers;
 
+use AGCommerce\Events\CheckoutEvent;
 use AGCommerce\Http\Requests;
 use AGCommerce\Order;
-use AGCommerce\Product;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
 {
-
     protected $car;
-
     protected $order;
+
 
     public function __construct(Order $orderModel)
     {
-
         $this->middleware('auth');
 
         if (Session::has('cart')) {
@@ -29,13 +26,16 @@ class CheckoutController extends Controller
 
     public function place()
     {
-
         if (!$this->cart->getTotal()) {
             return redirect()->route('cart');
         }
 
-        $user = Auth::User();
-        $order = $this->order->create(['user_id' => $user->id, 'total' => $this->cart->getTotal()]);
+        $data = [
+            'user_id' => Auth::User()->id,
+            'total' => $this->cart->getTotal()
+        ];
+
+        $order = $this->order->create($data);
 
         foreach ($this->cart->all() as $id => $item) {
             $order->items()->create([
@@ -43,19 +43,22 @@ class CheckoutController extends Controller
                 'qtde' => $item['qtde'],
                 'price' => $item['price']
             ]);
-            $this->cart->remove($id);
         }
 
-        return redirect()->route('checkout_order');
+        $this->cart->clear();
+
+        event(new CheckoutEvent(Auth::User()));
+
+        return redirect()->route('checkout');
 
     }
 
-    public function order(Product $product)
+    public function checkout()
     {
-        $produto = $product;
-        $orders = $this->order->where('user_id', '=', Auth::User()->id)->orderBy('created_at', 'desc')->get();
 
-        return view('store.order', compact('orders', 'produto'));
+        $orders = Auth::User()->orders()->get();
+        return view('store.checkout', compact('orders'));
+
     }
 
 }
