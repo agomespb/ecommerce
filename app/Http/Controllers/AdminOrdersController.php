@@ -3,6 +3,7 @@
 use AGCommerce\Http\Requests;
 use AGCommerce\Order;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class AdminOrdersController extends Controller
 {
@@ -33,8 +34,10 @@ class AdminOrdersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $message = "Status modificado com Sucesso. ID: {$id}";
+
         $this->orders->find($id)->update($request->all());
-        return 'Status modificado com Sucesso para o ID: <strong>' . $id . '</strong>';
+        return Response::json($message, 200);
     }
 
 

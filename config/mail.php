@@ -15,8 +15,8 @@ return [
 	|
 	*/
 
-//	'driver' => env('MAIL_DRIVER', 'smtp'),
-	'driver' => 'log',
+//	'driver' => env('MAIL_DRIVER'),
+	'driver' => 'smtp',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -29,8 +29,8 @@ return [
 	|
 	*/
 
-//	'host' => env('MAIL_HOST', 'smtp.gmail.com'),
-	'host' => 'smtp.gmail.com',
+//	'host' => env('MAIL_HOST', 'mx1.hostinger.com.br'),
+	'host' => 'mx1.hostinger.com.br',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -57,7 +57,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'ag3wmaster@gmail.com', 'name' => 'Web Master'],
+	'from' => ['address' => 'jack@jackmodaintima.com.br', 'name' => 'Jaqueline Veras'],
 
 	/*
 	|--------------------------------------------------------------------------
@@ -84,7 +84,7 @@ return [
 	*/
 
 //	'username' => env('MAIL_USERNAME'),
-	'username' => 'ag3wmaster@gmail.com',
+	'username' => 'jack@jackmodaintima.com.br',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -97,8 +97,8 @@ return [
 	|
 	*/
 
-//	'password' => env('MAIL_PASSWORD'),
-	'password' => 'xyzzyx',
+//	'password' => env('MAIL_PASSWORD', 'ag@2014@'),
+	'password' => 'jackmodaintima',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -124,6 +124,6 @@ return [
 	|
 	*/
 
-	'pretend' => true,
+	'pretend' => false,
 
 ];

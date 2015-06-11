@@ -90,7 +90,7 @@
 
                         $.ajax({
 
-                            type: "GET",
+                            type: "PUT",
                             data: $( '#form'+id_order ).serialize(),
                             url: "{{ route('order_update', ['id'=>null]) }}" + '/' + id_order,
                             dataType: "html",
@@ -103,14 +103,13 @@
                                             '<strong>Sucesso!</strong> ' + result +
                                             '</div>';
 
-                                $( "#error" ).val('');
-                                $( "#error" ).html( html );
+                                $("#error").val('').html( html );
                             },
                             beforeSend: function(){
                                 $('#status_'+id_order).css({display:"block"});
                             },
                             complete: function(msg){
-                                $('#status_'+id_order).css({display:"none"});
+                                $("#status_"+id_order).css({display:"none"});
                             },
                             error: function(erro){
 
@@ -121,9 +120,8 @@
                                             '<strong>Error!</strong> ' + erro +
                                             '</div>';
 
-                                $( "#error" ).val('');
-                                $( "#error" ).html( html );
-                                $('#status_'+id_order).css({display:"none"});
+                                $("#error").val('').html( html );
+                                $("#status_"+id_order).css({display:"none"});
                             }
                         });
 
